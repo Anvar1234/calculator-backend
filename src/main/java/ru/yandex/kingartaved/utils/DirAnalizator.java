@@ -30,9 +30,9 @@ public class DirAnalizator {
                     .replace(regex, "")
                     .replace(suffix, "")
                     .trim();
-            System.out.println("s : " + sCopy);
+//            System.out.println("s : " + sCopy);
             Path p = Path.of(s);
-            System.out.println("p : " + p);
+//            System.out.println("p : " + p);
             if (!Files.isDirectory(p)){
                 classes.add(Class.forName(sCopy));//ошибка в том, что в список попадает и имя пакета brackets, нужно сделать проверку, что это именно файл.
             }
@@ -63,7 +63,11 @@ public class DirAnalizator {
                     .replace(suffix, "")
                     .trim();
 //            System.out.println("s : " + sCopy);
-            classes.add(Class.forName(sCopy));
+            Path p = Path.of(s);
+//            System.out.println("p : " + p);
+            if (!Files.isDirectory(p)){
+                classes.add(Class.forName(sCopy));//ошибка в том, что в список попадает и имя пакета brackets, нужно сделать проверку, что это именно файл.
+            }
         }
         System.out.println("classesList : " + classes);
         return classes;

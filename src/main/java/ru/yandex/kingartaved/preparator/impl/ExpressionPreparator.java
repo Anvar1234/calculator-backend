@@ -1,6 +1,6 @@
 package ru.yandex.kingartaved.preparator.impl;
 
-import ru.yandex.kingartaved.math.OpenBracketable;
+import ru.yandex.kingartaved.math.Bracketable;
 import ru.yandex.kingartaved.preparator.Preparatorable;
 import ru.yandex.kingartaved.utils.Utils;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class ExpressionPreparator implements Preparatorable {
-    private OpenBracketable openBracketable;
+    private Bracketable openBracketable;
 
     private final String expression;
 
