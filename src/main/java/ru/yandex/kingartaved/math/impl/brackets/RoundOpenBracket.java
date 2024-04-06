@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.math.impl;
+package ru.yandex.kingartaved.math.impl.brackets;
 
 import ru.yandex.kingartaved.math.OpenBracketable;
 import ru.yandex.kingartaved.math.Tokenable;
