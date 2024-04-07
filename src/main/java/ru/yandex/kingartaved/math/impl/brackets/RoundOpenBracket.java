@@ -6,7 +6,7 @@ import ru.yandex.kingartaved.math.Tokenable;
 public class RoundOpenBracket implements Bracketable, Tokenable {
     private final String TOKEN = "(";
 
-    private final int PRIORITY = 2; // изменить на тот который в реале.
+    private final int PRIORITY = 1; // изменить на тот который в реале.
 
     @Override
     public String getToken() {

@@ -30,12 +30,21 @@ public class Creator {
         }
     }
 
-    public static List<Class<?>> getClasses() {
+    public static List<Class<?>> getClasses() { //сделать потом приватным, возможно.
         return classes;
     }
 
+
+
+
+
+
     public static List<Class<?>> getBracketClasses() { //сделать потом приватным, возможно.
         return bracketClasses;
+    }
+
+    public static Map<String, String> getBracketMap() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return createBracketMap();
     }
 
     /**
@@ -47,7 +56,7 @@ public class Creator {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом возвр Map<String, String>
+    public static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом приватным.
         Map<String, String> bracketsMap = new HashMap<>();
         List<Class<?>> bracketClasses = getBracketClasses();
         String suffixOpen = PropertiesUtil.get("app.openbracket.suffix");

@@ -1,10 +1,26 @@
 package ru.yandex.kingartaved.utils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
 public class Utils {
 
-    public static String removeSpaces(String expression) {
+    //todo: создать мапу с приоритетами и символами.
+    public static final Map<String, String> BRACKETS;
+
+    static {
+        try {
+            BRACKETS = Creator.getBracketMap();
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static String removeAllSpaces(String expression) {
         return expression.replaceAll(" ", "").trim();
     }
+
 
     public static boolean isNumber(String expression) {
         try {

@@ -14,7 +14,7 @@ public class ExpressionPreparator implements Preparatorable {
     private final String expression;
 
     public ExpressionPreparator(String expression) {
-        this.expression = Utils.removeSpaces(expression);//сразу же подчищаем от пробелов.
+        this.expression = Utils.removeAllSpaces(expression);//сразу же подчищаем от пробелов.
     }
 
 
