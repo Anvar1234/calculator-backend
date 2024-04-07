@@ -14,7 +14,7 @@ public class Creator {
 
     static {
         try {
-            bracketClasses = DirAnalizator.getBracketClasses();
+            bracketClasses = ClassGetter.getBracketClasses();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -24,7 +24,7 @@ public class Creator {
 
     static {
         try {
-            classes = DirAnalizator.getClasses();
+            classes = ClassGetter.getClasses();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -38,7 +38,15 @@ public class Creator {
         return bracketClasses;
     }
 
-    public static void createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом возвр Map<String, String>
+    /**
+     * Разделить метод на приватные подметоды, иначе сложно читать. То есть необходимо осуществить декомпозицию.
+     * @return
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    public static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом возвр Map<String, String>
         Map<String, String> bracketsMap = new HashMap<>();
         List<Class<?>> bracketClasses = getBracketClasses();
         String suffixOpen = PropertiesUtil.get("app.openbracket.suffix");
@@ -47,33 +55,42 @@ public class Creator {
         int count = 0;
         //Для информации: у нас всегда минимум 2 класса в пакете brackets.
         for (int i = 0; i < bracketClasses.size(); i++) {
-            Class<?> classToValue = bracketClasses.get(i);//не забыть увеличить count.
+            Class<?> classToValue = bracketClasses.get(i);
             if (classToValue.getSimpleName().contains("Open")) {//если класс содержит Опен, то это по-любому значение, а не ключ, тогда:
-                System.out.println("count1 : " + i);
                 System.out.println("classToValue : " + classToValue);
                 String nameWithoutSuffixOpen = classToValue.getSimpleName().replaceAll(suffixOpen, ""); //получили например "Round".
                 System.out.println("nameWithoutSuffixOpen : " + nameWithoutSuffixOpen);
-                while (count < bracketClasses.size()) {
+                while (count < bracketClasses.size()) {//прогоняем цикл по всем классам в пакете brackets, чтобы найти пару closing нашему классу get(i).
                     Class<?> classToKey = bracketClasses.get(count++);
                     if (classToKey.getSimpleName().contains("Closing")) {//если класс содержит Closing, то это по-любому ключ, а не значение, тогда:
                         System.out.println("classToKey : " + classToKey);
                         String nameWithoutSuffixClosing = classToKey.getSimpleName().replaceAll(suffixClosing, ""); // тоже получили Round.
                         System.out.println("nameWithoutSuffixClosing : " + nameWithoutSuffixClosing);
                         if (nameWithoutSuffixOpen.equals(nameWithoutSuffixClosing)) { //например Round(OpenBracket) = Round(ClosingBracket) && что-то еще нужно сравнивать!
-                            Constructor<?> valueConstructor = classToValue.getConstructor();
-                            Bracketable valueObj = (Bracketable) valueConstructor.newInstance();
-                            String value = valueObj.getBracket();
-                            Constructor<?> keyConstructor = classToKey.getConstructor();
-                            Bracketable keyObj = (Bracketable) keyConstructor.newInstance();
-                            String key = keyObj.getBracket();
-                            bracketsMap.put(key, value);
+                            Map<String, String> simpleMap = createSimpleMap(classToKey, classToValue);
+                            for (Map.Entry<String, String> m : simpleMap.entrySet()){
+                                bracketsMap.putIfAbsent(m.getKey(), m.getValue());//putIfAbsent Добавляет пары в мапу только если такого ключа в ней еще нет.
+                            }
                         }
                     }
                 }
             }
-            count = 0;
+            count = 0;//обнуляем count.
         }
-        System.out.println("Map : " + bracketsMap);
+        return bracketsMap;
     }
+
+    private static Map<String, String> createSimpleMap(Class<?> keyClass, Class<?> valueClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor<?> valueConstructor = valueClass.getConstructor();
+        Bracketable valueObj = (Bracketable) valueConstructor.newInstance();
+        String value = valueObj.getBracket();
+        Constructor<?> keyConstructor = keyClass.getConstructor();
+        Bracketable keyObj = (Bracketable) keyConstructor.newInstance();
+        String key = keyObj.getBracket();
+        return Map.of(key, value);
+    }
+
+
+
 }
 

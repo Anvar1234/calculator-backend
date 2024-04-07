@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class DirAnalizator {
+public class ClassGetter {
 
     public static List<Class<?>> getClasses() throws IOException, ClassNotFoundException {
         //Получаем список<String> ссылок на классы:
