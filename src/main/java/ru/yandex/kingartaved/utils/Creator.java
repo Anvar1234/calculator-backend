@@ -40,6 +40,7 @@ public class Creator {
 
     /**
      * Разделить метод на приватные подметоды, иначе сложно читать. То есть необходимо осуществить декомпозицию.
+     * Также необходимо избавиться от знака "?", мы же знаем, что в коллекции будут только Bracketable объекты.
      * @return
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
@@ -89,8 +90,5 @@ public class Creator {
         String key = keyObj.getBracket();
         return Map.of(key, value);
     }
-
-
-
 }
 
