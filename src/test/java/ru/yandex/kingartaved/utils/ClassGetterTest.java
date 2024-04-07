@@ -13,27 +13,54 @@ public class ClassGetterTest {
         List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.Cl"));//todo: заменить на нормальный класс позже
         Assertions.assertEquals(expected.get(0), ClassGetter.getClasses().get(0));
     }
-    //TODO: для всего списка классов сделать:
+    //TODO: для всего списка классов сделать, как getBracketClassesTest2:
 
     @Test
-    public void getClassesNegativeTest() throws IOException, ClassNotFoundException {
+    public void getClassesNegativeTest1() throws IOException, ClassNotFoundException {
         List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.preparator.impl.ExpressionPreparator"));
         Assertions.assertNotEquals(expected.get(0), ClassGetter.getClasses().get(0));
     }
 
     @Test
     public void getBracketClassesTest1() throws ClassNotFoundException, IOException {
-        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.brackets.RoundOpenBracket"));
+        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyOpenBracket"));
         Assertions.assertEquals(expected.get(0), ClassGetter.getBracketClasses().get(1));
     }
+
     @Test
-    public void getBracketClassesTest() throws ClassNotFoundException, IOException {//todo: переделать метод, этот просто для проверки чего-то писал
-//        List<Class<?>> expected = DirAnalizator.getBracketClasses();
-//        for(Class c : expected){
-//            System.out.println(c.getSimpleName());
-//        }
+    public void getBracketClassesTest2() throws ClassNotFoundException, IOException {
+        List<Class<?>> expected = List.of(
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyClosingBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyOpenBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.RoundClosingBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.RoundOpenBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.SquareClosingBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.SquareOpenBracket"));
+
+        Assertions.assertEquals(expected, ClassGetter.getBracketClasses());
     }
 
+    @Test
+    public void getBracketClassesNegativeTest1() throws ClassNotFoundException, IOException {
+        Class<?> expected = Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyOpenBracket");
+        Assertions.assertNotEquals(expected, ClassGetter.getBracketClasses().get(0));
+    }
 
+    @Test
+    public void getBracketClassesNegativeTest2() throws ClassNotFoundException, IOException {
+        List<Class<?>> expected = List.of(
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyClosingBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.CurlyOpenBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.RoundOpenBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.RoundClosingBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.SquareOpenBracket"),
+                Class.forName("ru.yandex.kingartaved.math.impl.brackets.SquareClosingBracket"));
+
+        Assertions.assertNotEquals(expected, ClassGetter.getBracketClasses());
+    }
 
 }
+
+
+
+
