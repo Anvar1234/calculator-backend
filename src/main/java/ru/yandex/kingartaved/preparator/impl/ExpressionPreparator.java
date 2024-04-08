@@ -2,24 +2,40 @@ package ru.yandex.kingartaved.preparator.impl;
 
 import ru.yandex.kingartaved.math.Bracketable;
 import ru.yandex.kingartaved.preparator.Preparatorable;
+import ru.yandex.kingartaved.utils.Creator;
 import ru.yandex.kingartaved.utils.Utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static ru.yandex.kingartaved.utils.Utils.addSpaces;
 
 
 public class ExpressionPreparator implements Preparatorable {
-    private Bracketable openBracketable;
+
+    private static final Map<String, String> brackets;
+
+    static {
+        try {
+            brackets = Creator.getBracketMap();
+        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
+                 IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private final String expression;
 
     public ExpressionPreparator(String expression) {
-        this.expression = Utils.removeAllSpaces(expression);//сразу же подчищаем от пробелов.
+        this.expression = Utils.removeAllSpaces(expression);//сразу же на входе подчищаем выражение от пробелов.
     }
 
 
-    //метод для составления списка из входного String выражения:
-    public List<String> getExpressionTerms() { //TODO: для посимвольного чтения можно использовать поток и Scanner для обработки.
+    //метод для составления списка, состоящего из членов выражения, из входного String выражения:
+    public List<String> getExpressionMembers() { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = new ArrayList<>();
         String[] stringTokens = expression.split("");
 
@@ -42,18 +58,30 @@ public class ExpressionPreparator implements Preparatorable {
 
 
     //Метод проверки в пользовательском выражении наличия унарного минуса и его замены.
-    //TODO: сравнивать скобки интерфейсом OpenBracketable.
-//    @Override
-//    public List<String> unaryMinusHandler() {
-//        List<String> members = getExpressionTerms();
-//        List<String> members2 = new ArrayList<>();
-//        for (int i = 0; i < members.size(); i++) {//надо какое-то условие типа: если это минус, и это первый символ, или после него идет открывающая скобка, то замена.
-//            if (members.get(i).equals("-") && (i == 0 || members.get(i).equals(openBracketable.getOpenBracket()))) {
-//                members2.add("0");
-//                members2.add("-");
-//            }
-//        }
-//    }
+    @Override
+    public List<String> unaryMinusHandler() {
+        List<String> members = getExpressionMembers();
+        List<String> members2 = new ArrayList<>();
+
+        for (int i = 0; i < members.size(); i++) {
+            //если элемент не минус, то добавляем его в выводную коллекцию.
+            if (!members.get(i).equals("-")) {
+                members2.add(members.get(i));
+                //иначе если элемент является первым в коллекции (i==0),
+                // то в выводную коллекцию добавляем строки 0 и -.
+            } else if (i == 0) {
+                members2.add("0");
+                members2.add("-");
+                //иначе, если элемент "-" не первый, проверяем есть ли перед ним откр скобка, если да, то в выводную коллекцию добавляем строки 0 и -.
+            } else if (brackets.containsValue(members.get(i - 1))) {
+                members2.add("0");
+                members2.add("-");
+                //если минус - это не первый элемент и перед ним нет откр скобки,
+                // то добавляем в выводную коллекцию.
+            } else members2.add("-");
+        }
+        return members2;
+    }
 
 
 }

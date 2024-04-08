@@ -10,14 +10,14 @@ public class CreatorTest {
 
     @Test
     public void createBracketMapTest() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //Map<String, String>
-        Map<String, String> actualMap = Creator.createBracketMap();
+        Map<String, String> actualMap = Creator.getBracketMap();
         Map<String, String> expectedMap = Map.of(")", "(", "}", "{", "]", "[");
         Assertions.assertEquals(expectedMap, actualMap);
     }
 
     @Test
     public void createBracketMapNegativeTest() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //Map<String, String>
-        Map<String, String> actualMap = Creator.createBracketMap();
+        Map<String, String> actualMap = Creator.getBracketMap();
         Map<String, String> expectedMap = Map.of("{","}",")", "(",   "]", "[");
         Assertions.assertNotEquals(expectedMap, actualMap);
     }

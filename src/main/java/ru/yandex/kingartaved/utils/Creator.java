@@ -16,7 +16,7 @@ public class Creator {
         try {
             bracketClasses = ClassGetter.getBracketClasses();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //нормально обработать потом
         }
     }
 
@@ -26,7 +26,7 @@ public class Creator {
         try {
             classes = ClassGetter.getClasses();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e);//нормально обработать потом
         }
     }
 
@@ -39,7 +39,7 @@ public class Creator {
 
 
 
-    public static List<Class<?>> getBracketClasses() { //сделать потом приватным, возможно.
+    private static List<Class<?>> getBracketClassesToCreate() { //сделать потом приватным, возможно.
         return bracketClasses;
     }
 
@@ -56,9 +56,9 @@ public class Creator {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом приватным.
+    private static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом приватным.
         Map<String, String> bracketsMap = new HashMap<>();
-        List<Class<?>> bracketClasses = getBracketClasses();
+        List<Class<?>> bracketClasses = getBracketClassesToCreate();
         String suffixOpen = PropertiesUtil.get("app.openbracket.suffix");
         String suffixClosing = PropertiesUtil.get("app.closingbracket.suffix");
 
