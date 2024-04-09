@@ -31,6 +31,10 @@ public class Utils {
         }
     }
 
+    public boolean isNotEmpty(String expression) {
+        return !expression.isEmpty();
+    }
+
     public static String addSpaces(String expression) {
         //TODO: в регех попробовать добавлять символы также из списка валидных символов. Сейчас,
         // например, здесь не указаны квадратные скобки, но в списке валидных они вроде есть. Скорее всего этот мтеод не нужен будет.
