@@ -23,7 +23,12 @@ public class ExpressionPreparator implements Preparatorable {
     private final String expression;
 
     public ExpressionPreparator(String expression) {
-        this.expression = Utils.removeAllSpaces(expression);//сразу же на входе подчищаем выражение от пробелов.
+        //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
+        if(!Utils.removeAllSpaces(expression).isEmpty()){//todo: возможно удалить метод isNotEmpty из  класса Utils.
+            this.expression = expression;
+        } else{
+            throw new RuntimeException("Пустое выражение!");
+        }
     }
 
     @Override

@@ -1,19 +1,29 @@
 package ru.yandex.kingartaved.validator.impl;
 
 import ru.yandex.kingartaved.preparator.Preparatorable;
+import ru.yandex.kingartaved.utils.Utils;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ExpressionValidator {
-//    private final List<String> preparedExpression;
-//
-//    public ExpressionValidator(Preparatorable preparatorable) {
-//        this.preparedExpression = preparatorable.getPreparedExpression();
-//    }
-//
-//
+    private static final Map<String, String> brackets = Utils.BRACKETS;
+    private final List<String> preparedExpression;
+
+    /**
+     * Данный класс необходим для проверки:
+     * 1) корректности расстановки скобок,
+     * 2) понимания, что выражение заканчивается не оператором, а скобкой или числом,
+     * 3) валидности используемых токенов.
+     */
+    //В конструктор приходит очищенное от пробелов, проверенное на пустоту выражение в виде списка, разделенное на нормальные члены мат выражения и с замененным унарным минусом.
+    public ExpressionValidator(Preparatorable preparatorable) {
+        this.preparedExpression = preparatorable.getPreparedExpression();
+    }
+
+
 //    /**
 //     * The public result method for checking the validity of an expression.
 //     */
@@ -24,7 +34,41 @@ public class ExpressionValidator {
 //        } else throw new RuntimeException("Parentheses are incorrect!");
 //    }
 //
-//
+    /**
+     * Method for checking the nesting of parentheses in a custom expression.
+     * Дубликат метода из старого калькулятора. Тот старый мтеод ниже.
+     * Суть метода в том, что нам главное чтобы были пары откр-закр скобка, а как они выглядят - нам без разницы.
+     */
+        private boolean isBracketsOrderCorrect() throws RuntimeException {
+//            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
+            int count = 0;
+            for(String s : preparedExpression){
+                if(count >= 0) {
+                    if(brackets.containsValue(s)){
+                        count++;
+                    } else if(brackets.containsKey(s)){
+                        count--;
+                    }
+                }
+            }
+            return count == 0;
+        }
+
+    public boolean isBracketsOrderCorrectForTest() throws RuntimeException {
+//            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
+        int count = 0;
+        for(String s : preparedExpression){
+            if(count >= 0) {
+                if(brackets.containsValue(s)){
+                    count++;
+                } else if(brackets.containsKey(s)){
+                    count--;
+                }
+            }
+        }
+        return count == 0;
+    }
+
 //    /**
 //     * Method for checking the nesting of parentheses in a custom expression.
 //     */

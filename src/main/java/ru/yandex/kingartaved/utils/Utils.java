@@ -31,7 +31,7 @@ public class Utils {
         }
     }
 
-    public boolean isNotEmpty(String expression) {
+    public static boolean isNotEmpty(String expression) {
         return !expression.isEmpty();
     }
 

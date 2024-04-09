@@ -38,10 +38,6 @@ public class Creator {
         return classes;
     }
 
-    private static List<Class<?>> getListOfBracketClassesToCreate() { //сделать потом приватным, возможно.
-        return bracketClasses;
-    }
-
     public static Map<String, String> getBracketMap() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         return createBracketMap();
     }
@@ -52,12 +48,11 @@ public class Creator {
      */
     private static Map<String, String> createBracketMap() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {  //сделать потом приватным.
         Map<String, String> bracketsMap = new HashMap<>();
-        List<Class<?>> bracketClasses = getListOfBracketClassesToCreate();
         String suffixOpen = PropertiesUtil.get("app.openbracket.suffix");
         String suffixClosing = PropertiesUtil.get("app.closingbracket.suffix");
 
         int count = 0;
-        //Для информации: у нас всегда минимум 2 класса в пакете brackets.
+        //Для информации: у нас всегда минимум 2 класса в пакете brackets (должно быть).
         for (int i = 0; i < bracketClasses.size(); i++) {
             Class<?> classToValue = bracketClasses.get(i);
             if (classToValue.getSimpleName().contains("Open")) {//если класс содержит Опен, то это по-любому значение, а не ключ, тогда:
