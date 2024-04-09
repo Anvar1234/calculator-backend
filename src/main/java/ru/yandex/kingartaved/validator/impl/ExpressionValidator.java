@@ -37,21 +37,21 @@ public class ExpressionValidator {
     /**
      * Method for checking the nesting of parentheses in a custom expression.
      * Дубликат метода из старого калькулятора. Тот старый мтеод ниже.
-     * Суть метода в том, что нам главное чтобы были пары откр-закр скобка, а как они выглядят - нам без разницы.
+     * Особенность метода в том, что нам главное, чтобы были пары откр-закр скобка, а как они выглядят - нам без разницы.
      */
         private boolean isBracketsOrderCorrect() throws RuntimeException {
 //            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
             int count = 0;
             for(String s : preparedExpression){
-                if(count >= 0) {
-                    if(brackets.containsValue(s)){
+                if(count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
+                    if(brackets.containsValue(s)){ //если элемент списка - любая открывающая скобка, то:
                         count++;
-                    } else if(brackets.containsKey(s)){
+                    } else if(brackets.containsKey(s)){ //если элемент списка - любая закрывающая скобка, то:
                         count--;
                     }
                 }
             }
-            return count == 0;
+            return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
         }
 
     public boolean isBracketsOrderCorrectForTest() throws RuntimeException {
