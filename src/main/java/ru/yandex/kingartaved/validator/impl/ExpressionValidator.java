@@ -38,6 +38,7 @@ public class ExpressionValidator {
      * Method for checking the nesting of parentheses in a custom expression.
      * Дубликат метода из старого калькулятора. Тот старый мтеод ниже.
      * Особенность метода в том, что нам главное, чтобы были пары откр-закр скобка, а как они выглядят - нам без разницы.
+     * И мы смотрим только на скобки, а на другие токены не смотрим.
      */
         private boolean isBracketsOrderCorrect() throws RuntimeException {
 //            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
