@@ -66,7 +66,7 @@ public class Creator {
                         String nameWithoutSuffixClosing = classToKey.getSimpleName().replaceAll(suffixClosing, ""); // тоже получили Round.
                         System.out.println("nameWithoutSuffixClosing : " + nameWithoutSuffixClosing);
                         if (nameWithoutSuffixOpen.equals(nameWithoutSuffixClosing)) { //например Round(OpenBracket) = Round(ClosingBracket) && что-то еще нужно сравнивать!
-                            Map<String, String> simpleMap = createSimpleMap(classToKey, classToValue);
+                            Map<String, String> simpleMap = createSingleMap(classToKey, classToValue);
                             for (Map.Entry<String, String> m : simpleMap.entrySet()) {
                                 bracketsMap.putIfAbsent(m.getKey(), m.getValue());//putIfAbsent Добавляет пары в мапу только если такого ключа в ней еще нет.
                             }
@@ -79,7 +79,7 @@ public class Creator {
         return bracketsMap;
     }
 
-    private static Map<String, String> createSimpleMap(Class<?> keyClass, Class<?> valueClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private static Map<String, String> createSingleMap(Class<?> keyClass, Class<?> valueClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Constructor<?> valueConstructor = valueClass.getConstructor();
         Bracketable valueObj = (Bracketable) valueConstructor.newInstance();
         String value = valueObj.getBracket();

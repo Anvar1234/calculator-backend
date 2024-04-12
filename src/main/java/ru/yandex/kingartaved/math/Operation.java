@@ -1,5 +1,5 @@
 package ru.yandex.kingartaved.math;
 
-public interface Operationable {
+public interface Operation {
     double doOperation(double... operands);
 }
