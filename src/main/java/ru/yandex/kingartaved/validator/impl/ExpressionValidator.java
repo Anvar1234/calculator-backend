@@ -3,13 +3,15 @@ package ru.yandex.kingartaved.validator.impl;
 import ru.yandex.kingartaved.preparator.Preparatorable;
 import ru.yandex.kingartaved.utils.Utils;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class ExpressionValidator {
-    private static final Map<String, String> brackets = Utils.BRACKETS;
+//    private static final Map<String, String> brackets = Utils.BRACKETS;
     private final List<String> preparedExpression;
 
     /**
@@ -19,7 +21,7 @@ public class ExpressionValidator {
      * 3) валидности используемых токенов.
      */
     //В конструктор приходит очищенное от пробелов, проверенное на пустоту выражение в виде списка, разделенное на нормальные члены мат выражения и с замененным унарным минусом.
-    public ExpressionValidator(Preparatorable preparatorable) {
+    public ExpressionValidator(Preparatorable preparatorable) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.preparedExpression = preparatorable.getPreparedExpression();
     }
 
@@ -43,32 +45,19 @@ public class ExpressionValidator {
         private boolean isBracketsOrderCorrect() throws RuntimeException {
 //            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
             int count = 0;
-            for(String s : preparedExpression){
-                if(count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
-                    if(brackets.containsValue(s)){ //если элемент списка - любая открывающая скобка, то:
-                        count++;
-                    } else if(brackets.containsKey(s)){ //если элемент списка - любая закрывающая скобка, то:
-                        count--;
-                    }
-                }
-            }
+//            for(String s : preparedExpression){
+//                if(count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
+//                    if(brackets.containsValue(s)){ //если элемент списка - любая открывающая скобка, то:
+//                        count++;
+//                    } else if(brackets.containsKey(s)){ //если элемент списка - любая закрывающая скобка, то:
+//                        count--;
+//                    }
+//                }
+//            }
             return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
         }
 
-    public boolean isBracketsOrderCorrectForTest() throws RuntimeException {
-//            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
-        int count = 0;
-        for(String s : preparedExpression){
-            if(count >= 0) {
-                if(brackets.containsValue(s)){
-                    count++;
-                } else if(brackets.containsKey(s)){
-                    count--;
-                }
-            }
-        }
-        return count == 0;
-    }
+
 
 //    /**
 //     * Method for checking the nesting of parentheses in a custom expression.

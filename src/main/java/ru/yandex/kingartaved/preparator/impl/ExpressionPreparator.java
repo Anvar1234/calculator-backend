@@ -2,13 +2,13 @@ package ru.yandex.kingartaved.preparator.impl;
 
 
 import ru.yandex.kingartaved.preparator.Preparatorable;
-import ru.yandex.kingartaved.utils.Creator;
+import ru.yandex.kingartaved.utils.Getter;
 import ru.yandex.kingartaved.utils.Utils;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -18,21 +18,21 @@ import java.util.Map;
  */
 public class ExpressionPreparator implements Preparatorable {
 
-    private static final Map<String, String> brackets = Utils.BRACKETS;
+//    private static final Map<String, String> brackets = Utils.BRACKETS;
 
     private final String expression;
 
     public ExpressionPreparator(String expression) {
         //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
-        if(!Utils.removeAllSpaces(expression).isEmpty()){//todo: возможно удалить метод isNotEmpty из  класса Utils.
+        if (!Utils.removeAllSpaces(expression).isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
             this.expression = expression;
-        } else{
+        } else {
             throw new RuntimeException("Пустое выражение!");
         }
     }
 
     @Override
-    public List<String> getPreparedExpression() {
+    public List<String> getPreparedExpression() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         return unaryMinusHandler();
     }
 
@@ -40,42 +40,25 @@ public class ExpressionPreparator implements Preparatorable {
      * Внутренний метод для составления из входного String выражения без пробелов списка,
      * состоящего из членов выражения, а не отдельных символов, в случае с числами.
      */
-    private List<String> getExpressionMembers() { //TODO: сделать приватным потом, и переписать тесты
+    //todo: переписать метод так, чтобы он считывал приоритет, если =0, то это число или точка.
+    //Так что в принципе для чисел можно все равно не создавать классы-токены, но для
+    //разделителя (точка или запятая) создать нужно, так как в качестве разделителя пользователь может захотеть
+    //использовать что-то другое.
+    public List<String> getExpressionMembers() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = new ArrayList<>();
         String[] stringTokens = expression.split("");
 
         StringBuilder sbBuffer = new StringBuilder();
+
         for (String s : stringTokens) {
-            char ch = s.charAt(0); //у нас всегда только один символ в строке после сплита, поэтому 0.
-            if (Character.isDigit(ch)) {
-                sbBuffer.append(ch);
+            if (Utils.isNumeric(s) || Getter.getPriorityOfToken(s) == 0) {
+                sbBuffer.append(s);
             } else if (!sbBuffer.isEmpty()) {
                 members.add(sbBuffer.toString()); //Копируем в результирующий список наше строку-число. Если буфер пустой, то ничего и не добавляется.
                 sbBuffer.delete(0, sbBuffer.length());//Очищаем буфер. В методе delete второй индекс - не включается в диапазон.
-                members.add(String.valueOf(ch));
+                members.add(s);
             } else {
-                members.add(String.valueOf(ch));
-            }
-        }
-        if (!sbBuffer.isEmpty()) members.add(sbBuffer.toString());
-        return members;
-    }
-
-    public List<String> getExpressionMembersForTest() {
-        List<String> members = new ArrayList<>();
-        String[] stringTokens = expression.split("");
-
-        StringBuilder sbBuffer = new StringBuilder();
-        for (String s : stringTokens) {
-            char ch = s.charAt(0); //у нас всегда только один символ в строке после сплита, поэтому 0.
-            if (Character.isDigit(ch)) {
-                sbBuffer.append(ch);
-            } else if (!sbBuffer.isEmpty()) {
-                members.add(sbBuffer.toString()); //Копируем в результирующий список наше строку-число. Если буфер пустой, то ничего и не добавляется.
-                sbBuffer.delete(0, sbBuffer.length());//Очищаем буфер. В методе delete второй индекс - не включается в диапазон.
-                members.add(String.valueOf(ch));
-            } else {
-                members.add(String.valueOf(ch));
+                members.add(s);
             }
         }
         if (!sbBuffer.isEmpty()) members.add(sbBuffer.toString());
@@ -87,53 +70,30 @@ public class ExpressionPreparator implements Preparatorable {
      * Метод проверки в пользовательском выражении наличия унарного минуса и его замены.
      * Переопределенный метод интерфейса.
      */
-    private List<String> unaryMinusHandler() { //TODO: сделать приватным потом, и переписать тесты
+    private List<String> unaryMinusHandler() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = getExpressionMembers();
-        List<String> members2 = new ArrayList<>();
+        List<String> handledMembers = new ArrayList<>();
 
         for (int i = 0; i < members.size(); i++) {
             //если элемент не минус, то добавляем его в выводную коллекцию.
             if (!members.get(i).equals("-")) {
-                members2.add(members.get(i));
+                handledMembers.add(members.get(i));
                 //иначе если элемент является первым в коллекции (i==0),
                 // то в выводную коллекцию добавляем строки 0 и -.
             } else if (i == 0) {
-                members2.add("0");
-                members2.add("-");
-                //иначе, если элемент "-" не первый, проверяем есть ли перед ним откр скобка, если да, то в выводную коллекцию добавляем строки 0 и -.
-            } else if (brackets.containsValue(members.get(i - 1))) {
-                members2.add("0");
-                members2.add("-");
+                handledMembers.add("0");
+                handledMembers.add("-");
+                //иначе, если элемент "-" не первый, проверяем есть ли перед ним откр скобка (приоритет == 1), если да, то в выводную коллекцию добавляем строки 0 и -.
+            } else if (Getter.getPriorityOfToken(members.get(i - 1)) == 1) {
+                handledMembers.add("0");
+                handledMembers.add("-");
                 //если минус - это не первый элемент и перед ним нет откр скобки,
                 // то добавляем в выводную коллекцию.
-            } else members2.add("-");
+            } else handledMembers.add("-");
         }
-        return members2;
+        return handledMembers;
     }
 
-    public List<String> unaryMinusHandlerForTest() {
-        List<String> members = getExpressionMembers();
-        List<String> members2 = new ArrayList<>();
-
-        for (int i = 0; i < members.size(); i++) {
-            //если элемент не минус, то добавляем его в выводную коллекцию.
-            if (!members.get(i).equals("-")) {
-                members2.add(members.get(i));
-                //иначе если элемент является первым в коллекции (i==0),
-                // то в выводную коллекцию добавляем строки 0 и -.
-            } else if (i == 0) {
-                members2.add("0");
-                members2.add("-");
-                //иначе, если элемент "-" не первый, проверяем есть ли перед ним откр скобка, если да, то в выводную коллекцию добавляем строки 0 и -.
-            } else if (brackets.containsValue(members.get(i - 1))) {
-                members2.add("0");
-                members2.add("-");
-                //если минус - это не первый элемент и перед ним нет откр скобки,
-                // то добавляем в выводную коллекцию.
-            } else members2.add("-");
-        }
-        return members2;
-    }
 }
 
 
