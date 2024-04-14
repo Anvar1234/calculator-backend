@@ -23,7 +23,7 @@ public class ExpressionPreparer implements Preparatorable {
     public ExpressionPreparer(String expression) {
         //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
         if (!Utils.removeAllSpaces(expression).isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
-            this.expression = expression;
+            this.expression = Utils.removeAllSpaces(expression);
         } else {
             throw new RuntimeException("Пустое выражение!");
         }
@@ -92,6 +92,24 @@ public class ExpressionPreparer implements Preparatorable {
         return handledMembers;
     }
 
+    @Override
+    public String toString() {
+        try {
+            return "PreparedExpression : " + getPreparedExpression();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

@@ -15,12 +15,12 @@ public class ExpressionPreparerTest {
     //например, первый if - это если символ это число и (после всего) if буфер не пуст:
     @Test
     public void getExpressionMembersForTest1() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String expression = "11.1";
-        List<String> expectedList = List.of("11.1");
+        String expression = "11.1 + 1";
+        List<String> expectedList = List.of("11.1", "+", "1");
         ExpressionPreparer expressionPreparer = new ExpressionPreparer(expression);
         List<String> actual = expressionPreparer.convertExpressionIntoMembers();
         System.out.println("actual : " + actual);
-        Assertions.assertEquals(expectedList, actual, "Если false, то знай, что должно получиться 11.1 как число.");
+        Assertions.assertEquals(expectedList, actual);
     }
 //
 //    //иначе, если входит не число и если буфер не пуст:

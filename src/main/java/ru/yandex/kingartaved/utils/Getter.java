@@ -87,4 +87,14 @@ public class Getter {
         //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
         return Integer.MAX_VALUE;  //todo: корректно возвращать такое значение? Лучше возвращать null? Или что?
     }
+
+//    public static String getSimpleClassNameOfInstanceOfToken(String token) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+//        List<Tokenable> tokenables = getTokenableInstances();
+//        for (Tokenable instance : tokenables) {
+//            if (token.equals(instance.getToken())) {
+//                return instance.getClass().getSimpleName();
+//            }
+//        }
+//        throw new RuntimeException(String.format("Такого - \"%s\" - токена не обнаружено.", token)); //todo: возможно лучше возвращать null или большое целое число.
+//    }
 }
