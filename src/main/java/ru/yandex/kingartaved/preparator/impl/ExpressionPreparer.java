@@ -16,13 +16,11 @@ import java.util.List;
  * Подготавливает выражение: удаляя лишние пробелы, разделяя на действительные члены математического выражения,
  * а также обрабатывая наличие унарного минуса.
  */
-public class ExpressionPreparator implements Preparatorable {
-
-//    private static final Map<String, String> brackets = Utils.BRACKETS;
+public class ExpressionPreparer implements Preparatorable {
 
     private final String expression;
 
-    public ExpressionPreparator(String expression) {
+    public ExpressionPreparer(String expression) {
         //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
         if (!Utils.removeAllSpaces(expression).isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
             this.expression = expression;
@@ -44,7 +42,7 @@ public class ExpressionPreparator implements Preparatorable {
     //Так что в принципе для чисел можно все равно не создавать классы-токены, но для
     //разделителя (точка или запятая) создать нужно, так как в качестве разделителя пользователь может захотеть
     //использовать что-то другое.
-    public List<String> getExpressionMembers() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
+    public List<String> convertExpressionIntoMembers() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = new ArrayList<>();
         String[] stringTokens = expression.split("");
 
@@ -71,7 +69,7 @@ public class ExpressionPreparator implements Preparatorable {
      * Переопределенный метод интерфейса.
      */
     private List<String> unaryMinusHandler() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
-        List<String> members = getExpressionMembers();
+        List<String> members = convertExpressionIntoMembers();
         List<String> handledMembers = new ArrayList<>();
 
         for (int i = 0; i < members.size(); i++) {

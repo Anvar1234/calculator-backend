@@ -1,7 +1,9 @@
 package ru.yandex.kingartaved.validator.impl;
 
+import ru.yandex.kingartaved.math.Tokenable;
 import ru.yandex.kingartaved.preparator.Preparatorable;
-import ru.yandex.kingartaved.utils.Utils;
+import ru.yandex.kingartaved.utils.Getter;
+import ru.yandex.kingartaved.utils.Utils.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,8 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static ru.yandex.kingartaved.utils.Getter.VALID_TOKENS;
+
 public class ExpressionValidator {
-//    private static final Map<String, String> brackets = Utils.BRACKETS;
+    //    private static final Map<String, String> brackets = Utils.BRACKETS;
     private final List<String> preparedExpression;
 
     /**
@@ -36,62 +40,55 @@ public class ExpressionValidator {
 //        } else throw new RuntimeException("Parentheses are incorrect!");
 //    }
 //
+
     /**
-     * Method for checking the nesting of parentheses in a custom expression.
-     * Дубликат метода из старого калькулятора. Тот старый мтеод ниже.
-     * Особенность метода в том, что нам главное, чтобы были пары откр-закр скобка, а как они выглядят - нам без разницы.
-     * И мы смотрим только на скобки, а на другие токены не смотрим.
+     * Метод проверки, что выражение заканчивается не оператором, а числом или скобкой.
      */
-        private boolean isBracketsOrderCorrect() throws RuntimeException {
-//            if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
-            int count = 0;
-//            for(String s : preparedExpression){
-//                if(count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
-//                    if(brackets.containsValue(s)){ //если элемент списка - любая открывающая скобка, то:
-//                        count++;
-//                    } else if(brackets.containsKey(s)){ //если элемент списка - любая закрывающая скобка, то:
-//                        count--;
-//                    }
-//                }
-//            }
-            return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
+    private boolean checkLastToken() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        int lastTokenIndex = preparedExpression.size() - 1;
+        String lastToken = preparedExpression.get(lastTokenIndex);
+        return (Getter.getPriorityOfToken(lastToken) == Integer.MAX_VALUE ||
+                Getter.getPriorityOfToken(lastToken) == -1); //порядок проверки ВАЖЕН! Если сначала проверяется наличие класса, то если в конце выражения стоит число, то выбрасывается моё рантайм исключение, которое сообщает что такого класса (что справедливо) нет.
+    }
+    public boolean checkLastTokenForTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return checkLastToken();
+    }
+
+
+    /**
+     * A method for checking the correct placement of parentheses in an expression.
+     */
+    private boolean isBracketsOrderCorrect() throws RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        int count = 0;
+        if (isValidTokens()) { //todo: добавить сюда это условие, когда будут все классы-токены.
+            for (String s : preparedExpression) {
+                if (count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
+                    if (Getter.getPriorityOfToken(s) == 1) { //если элемент списка - любая открывающая скобка, то:
+                        count++;
+                    } else if (Getter.getPriorityOfToken(s) == -1) { //если элемент списка - любая закрывающая скобка, то:
+                        count--;
+                    }
+                }
+            }
         }
+        return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
+    }
 
+    public boolean isBracketsOrderCorrectForTest() throws RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return isBracketsOrderCorrect();
+    }
 
+    /**
+     * Method for checking if a custom expression contains only valid tokens.
+     */
+    private boolean isValidTokens() throws RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        for (String s : preparedExpression) {
+            if (VALID_TOKENS.contains(s)) return false;
+        }
+        return true;
+    }
 
-//    /**
-//     * Method for checking the nesting of parentheses in a custom expression.
-//     */
-//    private boolean isBracketsOrderCorrect() throws RuntimeException {
-//        if (isValidTokens()) {
-//            Deque<Character> stack = new LinkedList<>();
-//            for (char c : cleanExpression.toCharArray()) {
-//                //если мапа содержит значение "с" (откр скобка), то пушим ее в стек.
-//                if (brackets.containsValue(c)) {
-//                    stack.push(c);
-//                    //иначе если перед нами закрыв скобка (ключ "с"), то:
-//                } else if (brackets.containsKey(c)) {
-//                    //если стек пустой или последнее значение стека != значению по ключу (откр скобка),
-//                    // что означает что каждой закрыв скобке должна соответствовать (быть в стеке) откр скобка:
-//                    if (stack.isEmpty() || stack.pop() != brackets.get(c)) {
-//                        return false;
-//                    }
-//                }
-//            }
-//            return stack.isEmpty(); //или tru?
-//        } else throw new RuntimeException("Invalid characters used!");
-//    }
-//
-//
-//    /**
-//     * Method for checking if a custom expression contains only valid tokens.
-//     */
-//    private boolean isValidTokens() throws RuntimeException {
-//        if (isNotEmpty()) {
-//            for (String item : cleanExpression.split("")) {
-//                if (!tokens.contains(item)) return false;
-//            }
-//            return true;
-//        } else throw new RuntimeException("The expression is empty!");
-//    }
+    public boolean isValidTokensForTest() throws RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return isValidTokens();
+    }
 }

@@ -14,6 +14,16 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class Getter {
+    public static final Set<String> VALID_TOKENS;
+
+    static {
+        try {
+            VALID_TOKENS = Getter.getValidTokens();
+        } catch (IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
+                 InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     //метод для получения списка Tokenable КЛАССОВ-ТОКЕНОВ из директории:
     public static List<Class<Tokenable>> getTokenableClasses() throws IOException, ClassNotFoundException { //todo: сделать потом приватным.
@@ -57,7 +67,7 @@ public class Getter {
         return tokenableInstances;
     }
 
-    public static Set<String> getValidTokens() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private static Set<String> getValidTokens() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Set<String> additionalTokens = Set.of(PropertiesUtil.get("app.numberTokens.to.add").trim().split(" "));
         Set<String> validTokens = new HashSet<>();
         for (Tokenable t : getTokenableInstances()) {
@@ -74,6 +84,7 @@ public class Getter {
                 return instance.getPriority();
             }
         }
-        return Integer.MAX_VALUE; //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
+        //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
+        return Integer.MAX_VALUE;  //todo: корректно возвращать такое значение? Лучше возвращать null? Или что?
     }
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class ExpressionPreparatorTest {
+public class ExpressionPreparerTest {
 
 
     //TODO: тест должен быть независим и локализован. И еще предполагаю,
@@ -17,8 +17,8 @@ public class ExpressionPreparatorTest {
     public void getExpressionMembersForTest1() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String expression = "11.1";
         List<String> expectedList = List.of("11.1");
-        ExpressionPreparator expressionPreparator = new ExpressionPreparator(expression);
-        List<String> actual = expressionPreparator.getExpressionMembers();
+        ExpressionPreparer expressionPreparer = new ExpressionPreparer(expression);
+        List<String> actual = expressionPreparer.convertExpressionIntoMembers();
         System.out.println("actual : " + actual);
         Assertions.assertEquals(expectedList, actual, "Если false, то знай, что должно получиться 11.1 как число.");
     }

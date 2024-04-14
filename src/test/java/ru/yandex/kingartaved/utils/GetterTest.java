@@ -14,7 +14,7 @@ public class GetterTest {
     public void getClassesTest() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         List<Class<Tokenable>> classesList = Getter.getTokenableClasses();
-        System.out.println("classesSet : " + classesList);
+        System.out.println("classesList : " + classesList);
 
         //создаем список instances экземпляров типа Tokenable:
         List<Tokenable> instances = new ArrayList<>();
@@ -53,7 +53,7 @@ public class GetterTest {
 
     @Test
     public void getValidTokensTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        Set<String> validTokens = Getter.getValidTokens();
+        Set<String> validTokens = Getter.VALID_TOKENS;
         System.out.println("validTokens : " + validTokens);
     }
 
