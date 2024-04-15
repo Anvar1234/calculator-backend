@@ -1,17 +1,13 @@
 package ru.yandex.kingartaved.validator.impl;
 
-import ru.yandex.kingartaved.math.Tokenable;
 import ru.yandex.kingartaved.preparator.Preparatorable;
 import ru.yandex.kingartaved.utils.Getter;
-import ru.yandex.kingartaved.utils.Utils.*;
+import ru.yandex.kingartaved.utils.Utils;
 import ru.yandex.kingartaved.validator.Validatorable;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import static ru.yandex.kingartaved.utils.Getter.VALID_TOKENS;
 
@@ -35,31 +31,29 @@ public class ExpressionValidator implements Validatorable {
      * The public result method for checking the validity of an expression.
      */
     @Override
-    public boolean isExpressionValid() throws RuntimeException {
+    public boolean isValidExpression() {
         try {
             return isValidTokens() && checkLastToken() && isBracketsOrderCorrect();
         } catch (Exception e) {
-            throw new RuntimeException("The expression is incorrect!");
+            throw new RuntimeException("Выражение не валидно!");
         }
     }
-    public boolean isExpressionValidForTest(){
-        return isExpressionValid();
+
+    public boolean isValidExpressionForTest() {
+        return isValidExpression();
     }
 
 
     /**
-     * Метод проверки, что выражение заканчивается не оператором, а числом или скобкой.
+     * Метод проверки, что выражение заканчивается не оператором, а числом или закрывающей скобкой.
      */
-    private boolean checkLastToken() throws
-            IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private boolean checkLastToken() {
         int lastTokenIndex = preparedExpression.size() - 1;
         String lastToken = preparedExpression.get(lastTokenIndex);
         return (Getter.getPriorityOfToken(lastToken) == Integer.MAX_VALUE ||
                 Getter.getPriorityOfToken(lastToken) == -1); //порядок проверки ВАЖЕН! Если сначала проверяется наличие класса, то если в конце выражения стоит число, то выбрасывается моё рантайм исключение, которое сообщает что такого класса (что справедливо) нет.
     }
-
-    public boolean checkLastTokenForTest() throws
-            IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public boolean checkLastTokenForTest() {
         return checkLastToken();
     }
 
@@ -67,9 +61,7 @@ public class ExpressionValidator implements Validatorable {
     /**
      * A method for checking the correct placement of parentheses in an expression.
      */
-    //todo: что-то здесь неправильно.
-    private boolean isBracketsOrderCorrect() throws
-            RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private boolean isBracketsOrderCorrect() {
         int count = 0;
         for (String s : preparedExpression) {
             if (count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
@@ -83,24 +75,21 @@ public class ExpressionValidator implements Validatorable {
         return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
     }
 
-    public boolean isBracketsOrderCorrectForTest() throws
-            RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public boolean isBracketsOrderCorrectForTest()  {
         return isBracketsOrderCorrect();
     }
 
     /**
      * Method for checking if a custom expression contains only valid tokens.
      */
-    private boolean isValidTokens() throws
-            RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private boolean isValidTokens() {
         for (String s : preparedExpression) {
-            if (!VALID_TOKENS.contains(s)) return false;
+            if (!Utils.isNumeric(s) && !VALID_TOKENS.contains(s)) return false;
         }
         return true;
     }
 
-    public boolean isValidTokensForTest() throws
-            RuntimeException, IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public boolean isValidTokensForTest() {
         return isValidTokens();
     }
 }

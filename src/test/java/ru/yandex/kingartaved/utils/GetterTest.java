@@ -13,7 +13,7 @@ public class GetterTest {
     @Test
     public void getClassesTest() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-        List<Class<Tokenable>> classesList = Getter.getTokenableClasses();
+        List<Class<Tokenable>> classesList = Getter.getTokenableClassesForTest();
         System.out.println("classesList : " + classesList);
 
         //создаем список instances экземпляров типа Tokenable:
@@ -57,20 +57,10 @@ public class GetterTest {
         System.out.println("validTokens : " + validTokens);
     }
 
-//    @Test
-//    public void createBracketMapTest() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //Map<String, String>
-//        Map<String, String> actualMap = Creator.getBracketMap();
-//        Map<String, String> expectedMap = Map.of(")", "(", "}", "{", "]", "[");
-//        Assertions.assertEquals(expectedMap, actualMap);
-//    }
-//
-//    @Test
-//    public void createBracketMapNegativeTest() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //Map<String, String>
-//        Map<String, String> actualMap = Creator.getBracketMap();
-//        Map<String, String> expectedMap = Map.of("{", "}", ")", "(", "]", "[");
-//        Assertions.assertNotEquals(expectedMap, actualMap);
-//    }
-//
+
+
+
+
 //    @Test
 //    public void getClassesTest() throws IOException, ClassNotFoundException {
 //        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.Cl"));//todo: заменить на нормальный класс позже

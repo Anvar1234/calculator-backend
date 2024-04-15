@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ExpressionValidatorTest {
     @Test
     public void checkLastTokenTest1() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String expression = "1+2";
+        String expression = "1+22*3/2-1+(){}[]";
         Preparatorable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean result = validator.checkLastTokenForTest();
@@ -33,7 +33,7 @@ public class ExpressionValidatorTest {
     //_________________________________________________________________________
     @Test
     public void isValidTokensTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String expression = "1+2*3/2-1+(){}[]";
+        String expression = "1+22*3/2-1+(){}[]";
         Preparatorable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         assertTrue(validator.isValidTokensForTest());
@@ -57,7 +57,7 @@ public class ExpressionValidatorTest {
     }
     @Test
     public void isBracketsOrderCorrectTest3() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String expression = "1+2*3/2-1+(){}[]";
+        String expression = "1+22*3/2-1+(){}[]";
         Preparatorable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
@@ -91,12 +91,12 @@ public class ExpressionValidatorTest {
     }
     //---------------------------------------------------------------------
     @Test
-    public void isExpressionValidTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String expression = "1+22*3/2-1+(){}[]"; //похоже ошибка из-за точки. Хотя ошибка выходит если даже число из 2х цифр!
+    public void isValidExpressionTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        String expression = "1+22.2*3/2-1+(){}[]"; //ошибка в методе isValidTokens. Если входит не отдельный токен, а напр число, то конечно его нет в VALID_TOKENS.
         Preparatorable preparator = new ExpressionPreparer(expression);
-        System.out.println(preparator); //похоже ошибка не в препараторе.
+        System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        boolean actual = validator.isExpressionValidForTest(); //похоже где-то здесь.
+        boolean actual = validator.isValidExpressionForTest();
         assertTrue(actual);
     }
 }

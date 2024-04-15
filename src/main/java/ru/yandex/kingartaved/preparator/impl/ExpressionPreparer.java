@@ -30,7 +30,7 @@ public class ExpressionPreparer implements Preparatorable {
     }
 
     @Override
-    public List<String> getPreparedExpression() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<String> getPreparedExpression() {
         return unaryMinusHandler();
     }
 
@@ -38,11 +38,7 @@ public class ExpressionPreparer implements Preparatorable {
      * Внутренний метод для составления из входного String выражения без пробелов списка,
      * состоящего из членов выражения, а не отдельных символов, в случае с числами.
      */
-    //todo: переписать метод так, чтобы он считывал приоритет, если =0, то это число или точка.
-    //Так что в принципе для чисел можно все равно не создавать классы-токены, но для
-    //разделителя (точка или запятая) создать нужно, так как в качестве разделителя пользователь может захотеть
-    //использовать что-то другое.
-    public List<String> convertExpressionIntoMembers() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
+    public List<String> convertExpressionIntoMembers() { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = new ArrayList<>();
         String[] stringTokens = expression.split("");
 
@@ -62,13 +58,14 @@ public class ExpressionPreparer implements Preparatorable {
         if (!sbBuffer.isEmpty()) members.add(sbBuffer.toString());
         return members;
     }
-
+    public List<String> convertExpressionIntoMembersForTest(){
+        return convertExpressionIntoMembers();
+    }
 
     /**
      * Метод проверки в пользовательском выражении наличия унарного минуса и его замены.
-     * Переопределенный метод интерфейса.
      */
-    private List<String> unaryMinusHandler() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException { //TODO: сделать приватным потом, и переписать тесты
+    private List<String> unaryMinusHandler() { //TODO: сделать приватным потом, и переписать тесты
         List<String> members = convertExpressionIntoMembers();
         List<String> handledMembers = new ArrayList<>();
 
@@ -91,24 +88,13 @@ public class ExpressionPreparer implements Preparatorable {
         }
         return handledMembers;
     }
+    public List<String> unaryMinusHandlerForTest(){
+        return unaryMinusHandler();
+    }
 
     @Override
     public String toString() {
-        try {
-            return "PreparedExpression : " + getPreparedExpression();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return "PreparedExpression : " + getPreparedExpression();
     }
 }
 
