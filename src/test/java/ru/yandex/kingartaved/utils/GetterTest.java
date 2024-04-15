@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.utils;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.yandex.kingartaved.math.Tokenable;
 
@@ -11,103 +12,46 @@ import java.util.*;
 public class GetterTest {
 
     @Test
-    public void getClassesTest() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public void getTokenableClassesTest() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-        List<Class<Tokenable>> classesList = Getter.getTokenableClassesForTest();
-        System.out.println("classesList : " + classesList);
-
-        //создаем список instances экземпляров типа Tokenable:
-        List<Tokenable> instances = new ArrayList<>();
-        for (Class<Tokenable> cl : classesList) {
-            Constructor<Tokenable> constructor = cl.getConstructor();
-            instances.add(constructor.newInstance());
+        List<Class<Tokenable>> classes = Getter.getTokenableClassesForTest();
+        List<String> simpleNameClasses = new ArrayList<>();
+        for (Class<Tokenable> cl : classes) {
+            simpleNameClasses.add(cl.getSimpleName());
         }
-        System.out.println("instances : " + instances);
-
-        //пробуем получить все символы классов-токенов:
-        Set<String> validTokens = new HashSet<>();
-        for (Tokenable t : instances) {
-            validTokens.add(t.getToken());
-        }
-        System.out.println("validTokens : " + validTokens);
-
-        //допустим у нас есть сет цифр (так как других цифр быть не может и я думаю не надо создавать классы-токены для них),
-        // сливаем воедино сет символов из классов-токенов и наш цифровой:
-        Set<String> validNumberTokens = Set.of("0", "1", "2"); //получать это из проперти.
-        validTokens.addAll(validNumberTokens);
-        System.out.println("validTokens with nums: " + validTokens);
-
-        //попробуем обратные действия - у нас есть список символов (типа нашего входного выражения), теперь
-        // нужно по этому символу найти равнозначный ему объект типа Tokenable и дальше применить действие, которое в
-        // классе-токене прописано (это сделать, когда создам классы-токены для операторов):
-        List<Class<?>> classL = new ArrayList<>();
-        for (String s : validTokens) {
-            for (Tokenable ins : instances) {
-                if (s.equals(ins.getToken())) {
-                    classL.add(ins.getClass());
-                }
-            }
-        }
-        System.out.println("classL: " + classL);
+        String expected = "CurlyOpenBracket";
+        String actual = simpleNameClasses.get(1);
+        System.out.println("simpleNameClasses : " + simpleNameClasses);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void getValidTokensTest() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        Set<String> validTokens = Getter.VALID_TOKENS;
-        System.out.println("validTokens : " + validTokens);
+    public void getTokenableInstancesTest() {
+        List<Tokenable> instances = Getter.getTokenableInstancesForTest();
+        String expected = "CurlyOpenBracket";
+        String actual = instances.get(1).getClass().getSimpleName();
+        System.out.println("actual : " + actual);
+        Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    public void getValidTokensTest() {
+        Set<String> validTokens = Getter.getValidTokensForTest();
+        String expected = "{";
+        Iterator<String> iterator = validTokens.iterator();
+        String actual = "";
+        for (int i = 0; i < 2; i++) {
+            actual = iterator.next();
+        }
+        System.out.println("actual : " + actual);
+        Assertions.assertEquals(expected, actual);
+    }
 
-
-
-
-//    @Test
-//    public void getClassesTest() throws IOException, ClassNotFoundException {
-//        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.Cl"));//todo: заменить на нормальный класс позже
-//        Assertions.assertEquals(expected.get(0), Creator.ClassGetter.getClassesForTest().get(0));
-//    }
-//
-//    @Test
-//    public void getClassesNegativeTest() throws IOException, ClassNotFoundException {
-//        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.preparator.impl.ExpressionPreparator"));
-//        Assertions.assertNotEquals(expected.get(0), Creator.ClassGetter.getClassesForTest().get(0));
-//    }
-//
-//    @Test
-//    public void getBracketClassesTest1() throws ClassNotFoundException, IOException {
-//        List<Class<?>> expected = List.of(Class.forName("ru.yandex.kingartaved.math.impl.CurlyOpenBracket"));
-//        Assertions.assertEquals(expected.get(0), Creator.ClassGetter.getBracketClassesForTest().get(1));
-//    }
-//    @Test
-//    public void getBracketClassesTest2() throws ClassNotFoundException, IOException {
-//        List<Class<?>> expected = List.of(
-//                Class.forName("ru.yandex.kingartaved.math.impl.CurlyClosingBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.CurlyOpenBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.RoundClosingBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.RoundOpenBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.SquareClosingBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.SquareOpenBracket"));
-//
-//        Assertions.assertEquals(expected, Creator.ClassGetter.getBracketClassesForTest());
-//    }
-//
-//    @Test
-//    public void getBracketClassesNegativeTest1() throws ClassNotFoundException, IOException {
-//        Class<?> expected = Class.forName("ru.yandex.kingartaved.math.impl.CurlyOpenBracket");
-//        Assertions.assertNotEquals(expected, Creator.ClassGetter.getBracketClassesForTest().get(0));
-//    }
-//
-//    @Test
-//    public void getBracketClassesNegativeTest2() throws ClassNotFoundException, IOException {
-//        List<Class<?>> expected = List.of(
-//                Class.forName("ru.yandex.kingartaved.math.impl.CurlyClosingBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.CurlyOpenBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.RoundOpenBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.RoundClosingBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.SquareOpenBracket"),
-//                Class.forName("ru.yandex.kingartaved.math.impl.SquareClosingBracket"));
-//
-//        Assertions.assertNotEquals(expected, Creator.ClassGetter.getBracketClassesForTest());
-//    }
-
+    @Test
+    public void getPriorityOfTokenTest() {
+        int expected = 2;
+        int actual = Getter.getPriorityOfTokenForTest("+");
+        System.out.println("actual : " + actual);
+        Assertions.assertEquals(expected, actual);
+    }
 }

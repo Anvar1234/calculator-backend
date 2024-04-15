@@ -7,10 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Getter {
@@ -71,14 +68,21 @@ public class Getter {
         }
     }
 
+    public static List<Tokenable> getTokenableInstancesForTest(){
+        return getTokenableInstances();
+    }
+
     private static Set<String> getValidTokens() {
         Set<String> additionalTokens = Set.of(PropertiesUtil.get("app.numberTokens.to.add").trim().split(" "));
-        Set<String> validTokens = new HashSet<>();
+        Set<String> validTokens = new LinkedHashSet<>();//линкедлист, чтобы порядок вставки был сохранен.
         for (Tokenable t : getTokenableInstances()) {
             validTokens.add(t.getToken());
         }
         validTokens.addAll(additionalTokens);
         return validTokens;
+    }
+    public static Set<String> getValidTokensForTest(){
+        return getValidTokens();
     }
 
     public static int getPriorityOfToken(String token) {
@@ -90,6 +94,9 @@ public class Getter {
         }
         //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
         return Integer.MAX_VALUE;  //todo: корректно возвращать такое значение? Лучше возвращать null? Или что?
+    }
+    public static int getPriorityOfTokenForTest(String token){
+        return getPriorityOfToken(token);
     }
 
 //    public static String getSimpleClassNameOfInstanceOfToken(String token) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

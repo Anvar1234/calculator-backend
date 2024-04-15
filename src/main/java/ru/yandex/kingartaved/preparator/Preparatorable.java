@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Preparatorable {
 
-    List<String> getPreparedExpression() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<String> getPreparedExpression();
 }
