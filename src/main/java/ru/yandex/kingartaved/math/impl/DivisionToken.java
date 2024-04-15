@@ -1,9 +1,11 @@
 package ru.yandex.kingartaved.math.impl;
 
-import ru.yandex.kingartaved.math.Bracketable;
+import ru.yandex.kingartaved.math.Operation;
 import ru.yandex.kingartaved.math.Tokenable;
 
-public class DivisionToken implements Tokenable {
+import java.util.Deque;
+
+public class DivisionToken implements Tokenable, Operation {
     private final String TOKEN = "/";
 
     private final int PRIORITY = 3; // изменить на тот который в реале.
@@ -17,4 +19,11 @@ public class DivisionToken implements Tokenable {
         return PRIORITY;
     }
 
+    @Override
+    public Deque<Double> doOperation(Deque<Double> resultStack) {
+        double divider = resultStack.pop();
+        double result = resultStack.pop() / divider;
+        resultStack.push(result);
+        return resultStack;
+    }
 }

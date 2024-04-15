@@ -1,9 +1,8 @@
 package ru.yandex.kingartaved.math.impl;
 
-import ru.yandex.kingartaved.math.Bracketable;
 import ru.yandex.kingartaved.math.Tokenable;
 
-public class RoundClosingBracket implements Bracketable, Tokenable {
+public class RoundClosingBracket implements Tokenable {
     private final String TOKEN = ")";
 
     private final int PRIORITY = -1; // изменить на тот который в реале.
@@ -15,11 +14,6 @@ public class RoundClosingBracket implements Bracketable, Tokenable {
     @Override
     public int getPriority() {
         return PRIORITY;
-    }
-
-    @Override
-    public String getBracket() {
-        return getToken();
     }
 
 }

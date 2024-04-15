@@ -5,16 +5,15 @@ import ru.yandex.kingartaved.math.Tokenable;
 
 import java.util.Deque;
 
-public class PlusToken implements Tokenable, Operation {
-    private final String TOKEN = "+";
+public class ExponentiationToken implements Tokenable, Operation {
+    private final String TOKEN = "^";
 
-    private final int PRIORITY = 2; // изменить на тот который в реале.
+    private final int PRIORITY = 4; // изменить на тот который в реале.
 
     @Override
     public String getToken() {
         return TOKEN;
     }
-
     @Override
     public int getPriority() {
         return PRIORITY;
@@ -22,8 +21,9 @@ public class PlusToken implements Tokenable, Operation {
 
     @Override
     public Deque<Double> doOperation(Deque<Double> resultStack) {
-       double result = resultStack.pop() + resultStack.pop();
-       resultStack.push(result);
-       return resultStack;
+        double pow = resultStack.pop();
+        double result = Math.pow(resultStack.pop(), pow);
+        resultStack.push(result);
+        return resultStack;
     }
 }

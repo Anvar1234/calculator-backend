@@ -1,12 +1,10 @@
-package ru.yandex.kingartaved.preparator.impl;
+package ru.yandex.kingartaved.preparer.impl;
 
 
-import ru.yandex.kingartaved.preparator.Preparatorable;
+import ru.yandex.kingartaved.preparer.Preparable;
 import ru.yandex.kingartaved.utils.Getter;
 import ru.yandex.kingartaved.utils.Utils;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +14,17 @@ import java.util.List;
  * Подготавливает выражение: удаляя лишние пробелы, разделяя на действительные члены математического выражения,
  * а также обрабатывая наличие унарного минуса.
  */
-public class ExpressionPreparer implements Preparatorable {
+public class ExpressionPreparer implements Preparable {
 
     private final String expression;
 
     public ExpressionPreparer(String expression) {
+        String expressionWithoutSpaces = Utils.removeAllSpaces(expression);
         //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
-        if (!Utils.removeAllSpaces(expression).isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
-            this.expression = Utils.removeAllSpaces(expression);
+        if (!expressionWithoutSpaces.isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
+            this.expression = expressionWithoutSpaces;
         } else {
-            throw new RuntimeException("Пустое выражение!");
+            throw new RuntimeException("Введено пустое выражение!");
         }
     }
 
@@ -45,7 +44,7 @@ public class ExpressionPreparer implements Preparatorable {
         StringBuilder sbBuffer = new StringBuilder();
 
         for (String s : stringTokens) {
-            if (Utils.isNumeric(s) || Getter.getPriorityOfToken(s) == 0) {
+            if (Utils.isNumeric(s) || Getter.getPriority(s) == 0) {
                 sbBuffer.append(s);
             } else if (!sbBuffer.isEmpty()) {
                 members.add(sbBuffer.toString()); //Копируем в результирующий список наше строку-число. Если буфер пустой, то ничего и не добавляется.
@@ -79,7 +78,7 @@ public class ExpressionPreparer implements Preparatorable {
                 handledMembers.add("0");
                 handledMembers.add("-");
                 //иначе, если элемент "-" не первый, проверяем есть ли перед ним откр скобка (приоритет == 1), если да, то в выводную коллекцию добавляем строки 0 и -.
-            } else if (Getter.getPriorityOfToken(members.get(i - 1)) == 1) {
+            } else if (Getter.getPriority(members.get(i - 1)) == 1) {
                 handledMembers.add("0");
                 handledMembers.add("-");
                 //если минус - это не первый элемент и перед ним нет откр скобки,
@@ -90,11 +89,6 @@ public class ExpressionPreparer implements Preparatorable {
     }
     public List<String> unaryMinusHandlerForTest(){
         return unaryMinusHandler();
-    }
-
-    @Override
-    public String toString() {
-        return "PreparedExpression : " + getPreparedExpression();
     }
 }
 

@@ -1,11 +1,8 @@
-package ru.yandex.kingartaved.preparator.impl;
+package ru.yandex.kingartaved.preparer.impl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.yandex.kingartaved.preparator.Preparatorable;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +14,7 @@ public class ExpressionPreparerTest {
     // что позитивные тесты должны рассматривать разные условия, то есть разные условия if в цикле for:
     //например, первый if - это если символ это число и (после всего) if буфер не пуст:
     @Test
-    public void getExpressionMembersTest1() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void getExpressionMembersTest1() {
         String expression = "11.1+ 1";
         List<String> expectedList = List.of("11.1", "+", "1");
         ExpressionPreparer expressionPreparer = new ExpressionPreparer(expression);
@@ -86,7 +83,7 @@ public class ExpressionPreparerTest {
         List<String> expected = List.of("1", "-", "2", "-", "(", "0", "-", "1", "+", "1", ")");
         List<String> actual = preparer.unaryMinusHandlerForTest();
         System.out.println("actual : " + actual);
-        Assertions.assertEquals(expected,actual);
+        Assertions.assertEquals(expected,actual); //[0, 0, 1, -, 1, 2, +, -, -]
     }
 
     @Test
