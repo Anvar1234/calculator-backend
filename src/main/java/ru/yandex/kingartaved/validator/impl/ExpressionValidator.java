@@ -8,23 +8,23 @@ import ru.yandex.kingartaved.validator.Validatorable;
 import java.util.List;
 
 import static ru.yandex.kingartaved.utils.Getter.VALID_TOKENS;
-
+/**
+ * Данный класс содержит методы для проверки:
+ * 1) корректности расстановки скобок,
+ * 2) окончания выражения (заканчивается не оператором, а закрывающей скобкой или числом),
+ * 3) валидности используемых токенов.
+ * В конструктор приходит очищенное от пробелов, проверенное на пустоту выражение в виде списка,
+ * разделенное на нормальные члены мат выражения и с замененным унарным минусом.
+ */
 public class ExpressionValidator implements Validatorable {
     private final List<String> preparedExpression;
 
-    /**
-     * Данный класс необходим для проверки:
-     * 1) корректности расстановки скобок,
-     * 2) что выражение заканчивается не оператором, а закрывающей скобкой или числом,
-     * 3) валидности используемых токенов.
-     */
-    //В конструктор приходит очищенное от пробелов, проверенное на пустоту выражение в виде списка, разделенное на нормальные члены мат выражения и с замененным унарным минусом.
     public ExpressionValidator(Preparable preparable) {
         this.preparedExpression = preparable.getPreparedExpression();
     }
 
     /**
-     * The public result method for checking the validity of an expression.
+     * Результирующий публичный метод для проверки валидности пользовательского выражения.
      */
     @Override
     public boolean isValidExpression() {
@@ -40,7 +40,7 @@ public class ExpressionValidator implements Validatorable {
 
 
     /**
-     * Метод проверки, что выражение заканчивается не оператором, а числом или закрывающей скобкой.
+     * Метод проверки окончания выражения, что выражение заканчивается не оператором, а числом или закрывающей скобкой.
      */
     private boolean checkLastToken() {
         int lastTokenIndex = preparedExpression.size() - 1;
@@ -54,20 +54,20 @@ public class ExpressionValidator implements Validatorable {
 
 
     /**
-     * A method for checking the correct placement of parentheses in an expression.
+     * Метод проверки правильности расстановки скобок в выражении.
      */
     private boolean isBracketsOrderCorrect() {
-        int count = 0;
+        int balance = 0;
         for (String s : preparedExpression) {
-            if (count >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
+            if (balance >= 0) { //при наличии закрывающей скобки до открывающей, баланс уйдет в минус.
                 if (Getter.getPriority(s) == 1) { //если элемент списка - любая открывающая скобка, то:
-                    count++;
+                    balance++;
                 } else if (Getter.getPriority(s) == -1) { //если элемент списка - любая закрывающая скобка, то:
-                    count--;
+                    balance--;
                 }
             }
         }
-        return count == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
+        return balance == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
     }
     public boolean isBracketsOrderCorrectForTest()  {
         return isBracketsOrderCorrect();
@@ -75,7 +75,7 @@ public class ExpressionValidator implements Validatorable {
 
 
     /**
-     * Method for checking if a custom expression contains only valid tokens.
+     * Метод проверки пользовательского выражения на наличие только валидных токенов.
      */
     private boolean isValidTokens() {
         for (String s : preparedExpression) {

@@ -18,10 +18,10 @@ public class RPNCalculatorTest {
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        List<String> convertedExpression = converterable.getConverted();
         System.out.println("convertedExpression : " + convertedExpression);
-        Calculable calculable = new RPNCalculator(converterable);
-        double result = calculable.calculate().getFirst();
+        RPNCalculator calculable = new RPNCalculator(converterable);
+        double result = calculable.calculateForTest().getFirst();
         System.out.println("result : " + result);
     }
     @Test
@@ -31,10 +31,10 @@ public class RPNCalculatorTest {
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        List<String> convertedExpression = converterable.getConverted();
         System.out.println("convertedExpression : " + convertedExpression);
-        Calculable calculable = new RPNCalculator(converterable);
-        double result = calculable.calculate().getFirst();
+        RPNCalculator calculable = new RPNCalculator(converterable);
+        double result = calculable.calculateForTest().getFirst();
         System.out.println("result : " + result);
     }
     @Test
@@ -44,10 +44,10 @@ public class RPNCalculatorTest {
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        List<String> convertedExpression = converterable.getConverted();
         System.out.println("convertedExpression : " + convertedExpression);
-        Calculable calculable = new RPNCalculator(converterable);
-        double result = calculable.calculate().getFirst();
+        RPNCalculator calculable = new RPNCalculator(converterable);
+        double result = calculable.calculateForTest().getFirst();
         System.out.println("result : " + result);
     }
 
@@ -58,10 +58,23 @@ public class RPNCalculatorTest {
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        List<String> convertedExpression = converterable.getConverted();
         System.out.println("convertedExpression : " + convertedExpression);
-        Calculable calculable = new RPNCalculator(converterable);
-        double result = calculable.calculate().getFirst();
+        RPNCalculator calculable = new RPNCalculator(converterable);
+        double result = calculable.calculateForTest().getFirst();
+        System.out.println("result : " + result);
+    }
+    @Test
+    public void calculateTest5() {
+        String expression = "(0/2+2)*2^3";//16
+        Preparable preparator = new ExpressionPreparer(expression);
+        System.out.println(preparator);
+        ExpressionValidator validator = new ExpressionValidator(preparator);
+        Converterable converterable = new RPNConverter(preparator, validator);
+        List<String> convertedExpression = converterable.getConverted();
+        System.out.println("convertedExpression : " + convertedExpression);
+        RPNCalculator calculable = new RPNCalculator(converterable);
+        double result = calculable.calculateForTest().getFirst();
         System.out.println("result : " + result);
     }
 }

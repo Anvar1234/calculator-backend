@@ -1,7 +1,6 @@
 package ru.yandex.kingartaved.service.impl;
 
 import ru.yandex.kingartaved.converter.Converterable;
-import ru.yandex.kingartaved.math.Operation;
 import ru.yandex.kingartaved.service.Calculable;
 import ru.yandex.kingartaved.utils.Getter;
 
@@ -15,7 +14,7 @@ public class RPNCalculator implements Calculable {
     private final List<String> convertedExpression;
 
     public RPNCalculator(Converterable converter) {
-        this.convertedExpression = converter.getConvertedExpression();
+        this.convertedExpression = converter.getConverted();
     }
 
     @Override

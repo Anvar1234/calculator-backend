@@ -14,6 +14,7 @@ public class DivisionToken implements Tokenable, Operation {
     public String getToken() {
         return TOKEN;
     }
+
     @Override
     public int getPriority() {
         return PRIORITY;
@@ -22,8 +23,12 @@ public class DivisionToken implements Tokenable, Operation {
     @Override
     public Deque<Double> doOperation(Deque<Double> resultStack) {
         double divider = resultStack.pop();
-        double result = resultStack.pop() / divider;
-        resultStack.push(result);
-        return resultStack;
+        if (divider == 0) {
+           throw new RuntimeException("Деление на ноль!");
+        } else {
+            double result = resultStack.pop() / divider;
+            resultStack.push(result);
+            return resultStack;
+        }
     }
 }

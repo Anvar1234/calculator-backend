@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.kingartaved.math.Tokenable;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -50,7 +49,7 @@ public class GetterTest {
     @Test
     public void getPriorityOfTokenTest() {
         int expected = 2;
-        int actual = Getter.getPriorityOfTokenForTest("+");
+        int actual = Getter.getPriorityByTokenForTest("+");
         System.out.println("actual : " + actual);
         Assertions.assertEquals(expected, actual);
     }

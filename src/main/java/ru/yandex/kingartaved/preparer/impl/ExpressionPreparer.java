@@ -10,34 +10,37 @@ import java.util.List;
 
 
 /**
- * Класс-обработчик входящего пользовательского выражения.
- * Подготавливает выражение: удаляя лишние пробелы, разделяя на действительные члены математического выражения,
+ * Класс-подготовщик входящего пользовательского выражения для дальнейшего использования.
+ * Подготавливает выражение, удаляя лишние пробелы, разделяя на действительные члены математического выражения,
  * а также обрабатывая наличие унарного минуса.
  */
 public class ExpressionPreparer implements Preparable {
-
     private final String expression;
 
     public ExpressionPreparer(String expression) {
         String expressionWithoutSpaces = Utils.removeAllSpaces(expression);
         //сразу же на входе подчищаем выражение от пробелов и проверяем на пустоту.
-        if (!expressionWithoutSpaces.isEmpty()) {//todo: возможно удалить метод isNotEmpty из  класса Utils.
+        if (!expressionWithoutSpaces.isEmpty()) {
             this.expression = expressionWithoutSpaces;
         } else {
             throw new RuntimeException("Введено пустое выражение!");
         }
     }
 
+    /**
+     * Метод для получения подготовленного выражения.
+     */
     @Override
     public List<String> getPreparedExpression() {
         return unaryMinusHandler();
     }
 
     /**
-     * Внутренний метод для составления из входного String выражения без пробелов списка,
-     * состоящего из членов выражения, а не отдельных символов, в случае с числами.
+     * Приватный метод для составления из входного выражения без пробелов списка,
+     * состоящего из членов выражения, а не отдельных токенов, например, в случае с числами - значением списка будут
+     * не цифры, а "склеенное" из них число.
      */
-    public List<String> convertExpressionIntoMembers() { //TODO: сделать приватным потом, и переписать тесты
+    private List<String> convertExpressionIntoMembers() {
         List<String> members = new ArrayList<>();
         String[] stringTokens = expression.split("");
 
@@ -62,9 +65,9 @@ public class ExpressionPreparer implements Preparable {
     }
 
     /**
-     * Метод проверки в пользовательском выражении наличия унарного минуса и его замены.
+     * Метод проверки наличия в пользовательском выражении унарного минуса и его замены.
      */
-    private List<String> unaryMinusHandler() { //TODO: сделать приватным потом, и переписать тесты
+    private List<String> unaryMinusHandler() {
         List<String> members = convertExpressionIntoMembers();
         List<String> handledMembers = new ArrayList<>();
 

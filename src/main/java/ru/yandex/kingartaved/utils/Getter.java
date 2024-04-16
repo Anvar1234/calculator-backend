@@ -11,6 +11,10 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * Класс для получения базовых сущностей, используемых в дальнейшем, например: список валидных токенов,
+ * экземпляра класса по токену, приоритета токена.
+ */
 public class Getter {
     public static final Set<String> VALID_TOKENS;
 
@@ -18,8 +22,24 @@ public class Getter {
         VALID_TOKENS = getValidTokens();
     }
 
-    //метод для получения списка Tokenable КЛАССОВ-ТОКЕНОВ из директории:
-    private static List<Class<Tokenable>> getTokenableClasses() { //todo: сделать потом приватным.
+    /**
+     * Публичный метод для получения экземпляра класса по токену-оператору.
+     */
+    public static Optional<Operation> getInstance(String token) {
+        return getInstanceByToken(token);
+    }
+
+    /**
+     * Публичный метод для получения приоритета токена.
+     */
+    public static int getPriority(String token) {
+        return getPriorityByToken(token);
+    }
+
+    /**
+     * Приватный метод для получения списка Tokenable КЛАССОВ-ТОКЕНОВ из директории.
+     */
+    private static List<Class<Tokenable>> getTokenableClasses() {
         //Получаем список<String> ссылок на классы:
         Path pathToImpl = Path.of(PropertiesUtil.get("app.impl.path"));
         try (Stream<Path> streamClassPaths = Files.list(pathToImpl)) {
@@ -41,7 +61,7 @@ public class Getter {
                 Path p = Path.of(s);
 //            System.out.println("p : " + p);
                 if (!Files.isDirectory(p) && Tokenable.class.isAssignableFrom(Class.forName(sCopy))) {//проверяем, не является ли значение в списке классов директорией И принадлежит ли к типу Tokenable.
-                    classes.add((Class<Tokenable>) Class.forName(sCopy));//ошибка в том, что в список попадает и имя пакета brackets, нужно сделать проверку, что это именно файл.
+                    classes.add((Class<Tokenable>) Class.forName(sCopy));//todo: ВОПРОС - приведение можно использовать?
                 }
             }
             return classes;
@@ -54,8 +74,9 @@ public class Getter {
         return getTokenableClasses();
     }
 
-
-    //метод для получения списка ЭКЗЕМПЛЯРОВ классов-токенов:
+    /**
+     * Приватный метод для получения списка ЭКЗЕМПЛЯРОВ классов-токенов (Tokenable).
+     */
     private static List<Tokenable> getTokenableInstances() {
         List<Tokenable> tokenableInstances = new ArrayList<>();
         try {
@@ -74,6 +95,9 @@ public class Getter {
         return getTokenableInstances();
     }
 
+    /**
+     * Приватный метод для получения множества валидных токенов.
+     */
     private static Set<String> getValidTokens() {
         Set<String> additionalTokens = Set.of(PropertiesUtil.get("app.numberTokens.to.add").trim().split(" "));
         Set<String> validTokens = new LinkedHashSet<>();//линкедлист, чтобы порядок вставки был сохранен.
@@ -88,7 +112,10 @@ public class Getter {
         return getValidTokens();
     }
 
-    public static int getPriority(String token) {
+    /**
+     * Приватный метод для получения приоритета токена.
+     */
+    private static int getPriorityByToken(String token) {
         List<Tokenable> tokenables = getTokenableInstances();
         for (Tokenable instance : tokenables) {
             if (token.equals(instance.getToken())) {
@@ -96,45 +123,25 @@ public class Getter {
             }
         }
         //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
-        return Integer.MAX_VALUE;  //todo: корректно возвращать такое значение? Лучше возвращать null? Или что?
+        return Integer.MAX_VALUE;  //todo: ВОПРОС - корректно возвращать такое значение? Лучше возвращать null? Optional? Или что?
     }
 
-    public static int getPriorityOfTokenForTest(String token) {
+    public static int getPriorityByTokenForTest(String token) {
         return getPriority(token);
     }
 
-    public static Optional<Operation> getInstance(String token) {
+    /**
+     * Приватный метод для получения экземпляра класса по токену-оператору.
+     */
+    private static Optional<Operation> getInstanceByToken(String token) {
         List<Tokenable> tokenables = getTokenableInstances();
         for (Tokenable instance : tokenables) {
-            if (token.equals(instance.getToken()) && instance instanceof Operation) {
-                return Optional.of((Operation) instance);
+            if (instance != null &&
+                    token.equals(instance.getToken()) &&
+                    instance instanceof Operation) { //todo: ВОПРОС - так норм или instanceof это не надо?
+                return Optional.of((Operation) instance); //todo: ВОПРОС - приведение норм или не надо?
             }
         }
         return Optional.empty();
     }
-
-
-//    public static Deque<Double> getOperation(String token) {
-//        List<Tokenable> tokenables = getTokenableInstances();
-//        for (Tokenable instance : tokenables) {
-//            if (instance instanceof Operation && token.equals(instance.getToken())) {
-//                 ((Operation) instance).doOperation()
-//
-//            }
-//
-//        }
-//        //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
-//        return Integer.MAX_VALUE;  //todo: корректно возвращать такое значение? Лучше возвращать null? Или что?
-//    }
-
-
-//    public static String getSimpleClassNameOfInstanceOfToken(String token) throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-//        List<Tokenable> tokenables = getTokenableInstances();
-//        for (Tokenable instance : tokenables) {
-//            if (token.equals(instance.getToken())) {
-//                return instance.getClass().getSimpleName();
-//            }
-//        }
-//        throw new RuntimeException(String.format("Такого - \"%s\" - токена не обнаружено.", token)); //todo: возможно лучше возвращать null или большое целое число.
-//    }
 }

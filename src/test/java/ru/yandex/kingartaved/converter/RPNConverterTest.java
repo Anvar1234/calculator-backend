@@ -15,8 +15,8 @@ public class RPNConverterTest {
         Preparable preparator = new ExpressionPreparer(expression);
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        RPNConverter converterable = new RPNConverter(preparator, validator);
+        List<String> convertedExpression = converterable.getConvertedExpressionForTest();
         System.out.println("convertedExpression : " + convertedExpression);
     }
     @Test
@@ -25,18 +25,18 @@ public class RPNConverterTest {
         Preparable preparator = new ExpressionPreparer(expression);
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        RPNConverter converterable = new RPNConverter(preparator, validator);
+        List<String> convertedExpression = converterable.getConvertedExpressionForTest();
         System.out.println("convertedExpression : " + convertedExpression);
     }
     @Test
     public void getConvertedExpressionTest3(){
-        String expression = "-(-1-(1+2))"; //todo: где-то косяк что-ли, отличается от выражения в старом калькуляторе, но результат вроде правильный.
+        String expression = "-(-1-(1+2))";
         Preparable preparator = new ExpressionPreparer(expression);
         System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        Converterable converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpression();
+        RPNConverter converterable = new RPNConverter(preparator, validator);
+        List<String> convertedExpression = converterable.getConvertedExpressionForTest();
         System.out.println("convertedExpression : " + convertedExpression);
     }
 }

@@ -15,6 +15,10 @@ import static ru.yandex.kingartaved.utils.Utils.isNumeric;
 public class RPNConverter implements Converterable {
     private final List<String> preparedExpression;
 
+    /**
+     * Класс, используемый для перевода пользовательского выражения в обратную польскую нотацию (ОПН).
+     */
+
     public RPNConverter(Preparable preparable, Validatorable validator) {
         if (validator.isValidExpression()) {
             this.preparedExpression = preparable.getPreparedExpression();
@@ -22,9 +26,18 @@ public class RPNConverter implements Converterable {
             throw new RuntimeException("Выражение не валидно!");
         }
     }
-
+    /**
+     * Публичный метод для получения пользовательского выражения в виде ОПН.
+     */
     @Override
-    public List<String> getConvertedExpression() {
+    public List<String> getConverted() {
+        return getConvertedExpression();
+    }
+
+    /**
+     * Приватный метод для получения пользовательского выражения в виде ОПН.
+     */
+    private List<String> getConvertedExpression() {
 
         Deque<String> operators = new ArrayDeque<>(); //стек операторов
         List<String> convertedExpression = new ArrayList<>(); //коллекция вывода
@@ -79,7 +92,8 @@ public class RPNConverter implements Converterable {
         }
         return convertedExpression;
     }
-    public List<String> getConvertedExpressionForTest(){
-        return getConvertedExpression();
+
+    public List<String> getConvertedExpressionForTest() {
+        return this.getConvertedExpression();
     }
 }
