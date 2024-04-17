@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.converter;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.yandex.kingartaved.converter.impl.RPNConverter;
 import ru.yandex.kingartaved.preparer.Preparable;
@@ -13,30 +14,21 @@ public class RPNConverterTest {
     public void getConvertedExpressionTest1(){
         String expression = "1-(1+2)-3+4-5*7";
         Preparable preparator = new ExpressionPreparer(expression);
-        System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         RPNConverter converterable = new RPNConverter(preparator, validator);
         List<String> convertedExpression = converterable.getConvertedExpressionForTest();
-        System.out.println("convertedExpression : " + convertedExpression);
+        Assertions.assertEquals("+", convertedExpression.get(3));
+        Assertions.assertEquals(convertedExpression.size()-1, convertedExpression.lastIndexOf("-"));
     }
+
     @Test
     public void getConvertedExpressionTest2(){
-        String expression = "1*(2-(3-4))";
+        String expression = "-(-1-(1+2)/2)";
         Preparable preparator = new ExpressionPreparer(expression);
-        System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         RPNConverter converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpressionForTest();
-        System.out.println("convertedExpression : " + convertedExpression);
-    }
-    @Test
-    public void getConvertedExpressionTest3(){
-        String expression = "-(-1-(1+2))";
-        Preparable preparator = new ExpressionPreparer(expression);
-        System.out.println(preparator);
-        ExpressionValidator validator = new ExpressionValidator(preparator);
-        RPNConverter converterable = new RPNConverter(preparator, validator);
-        List<String> convertedExpression = converterable.getConvertedExpressionForTest();
-        System.out.println("convertedExpression : " + convertedExpression);
+        List<String> actualConverted = converterable.getConvertedExpressionForTest();
+        List<String> expected = List.of("0","0","1","-", "1","2","+","2","/","-","-");
+        Assertions.assertEquals(expected, actualConverted);
     }
 }

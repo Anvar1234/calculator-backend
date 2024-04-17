@@ -11,7 +11,7 @@ import java.util.*;
 public class GetterTest {
 
     @Test
-    public void getTokenableClassesTest() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public void getTokenableClassesTest() {
 
         List<Class<Tokenable>> classes = Getter.getTokenableClassesForTest();
         List<String> simpleNameClasses = new ArrayList<>();
@@ -20,7 +20,6 @@ public class GetterTest {
         }
         String expected = "CurlyOpenBracket";
         String actual = simpleNameClasses.get(1);
-        System.out.println("simpleNameClasses : " + simpleNameClasses);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -29,7 +28,6 @@ public class GetterTest {
         List<Tokenable> instances = Getter.getTokenableInstancesForTest();
         String expected = "CurlyOpenBracket";
         String actual = instances.get(1).getClass().getSimpleName();
-        System.out.println("actual : " + actual);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -42,7 +40,6 @@ public class GetterTest {
         for (int i = 0; i < 2; i++) {
             actual = iterator.next();
         }
-        System.out.println("actual : " + actual);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -50,7 +47,6 @@ public class GetterTest {
     public void getPriorityOfTokenTest() {
         int expected = 2;
         int actual = Getter.getPriorityByTokenForTest("+");
-        System.out.println("актуальный : " + actual);
         Assertions.assertEquals(expected, actual);
     }
 }

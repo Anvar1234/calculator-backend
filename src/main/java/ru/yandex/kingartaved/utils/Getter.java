@@ -61,11 +61,12 @@ public class Getter {
                 Path p = Path.of(s);
 //            System.out.println("p : " + p);
                 if (!Files.isDirectory(p) && Tokenable.class.isAssignableFrom(Class.forName(sCopy))) {//проверяем, не является ли значение в списке классов директорией И принадлежит ли к типу Tokenable.
-                    classes.add((Class<Tokenable>) Class.forName(sCopy));//todo: ВОПРОС - приведение можно использовать? И почему Идея выделяет строку?
+                    classes.add((Class<Tokenable>) Class.forName(sCopy));//TODO: ВОПРОС - приведение можно использовать? И почему Идея выделяет строку?
                 }
             }
             return classes;
         } catch (IOException | ClassNotFoundException e) {
+            //TODO: норм ли так обрабатывать исключения?
             throw new RuntimeException("There was an error in specifying the path or class name."); //Ошибка в указании пути или имени классов.
         }
     }
@@ -123,7 +124,7 @@ public class Getter {
             }
         }
         //если эквивалента входящей строки не найдено, то это число, и чтобы его идентифицировать, вернем заведомо максимально большое целое число.
-        return Integer.MAX_VALUE;  //todo: ВОПРОС - корректно возвращать такое значение? Лучше возвращать null? Optional? Или что?
+        return Integer.MAX_VALUE;  //TODO: ВОПРОС - корректно возвращать такое значение? Лучше возвращать null? Optional? Или что?
     }
 
     public static int getPriorityByTokenForTest(String token) {
@@ -138,8 +139,8 @@ public class Getter {
         for (Tokenable instance : tokenables) {
             if (instance != null &&
                     token.equals(instance.getToken()) &&
-                    instance instanceof Operation) { //todo: ВОПРОС - так норм или instanceof это не надо?
-                return Optional.of((Operation) instance); //todo: ВОПРОС - приведение норм или не надо?
+                    instance instanceof Operation) { //TODO: ВОПРОС - так норм или instanceof это не надо?
+                return Optional.of((Operation) instance); //TODO: ВОПРОС - приведение норм или не надо?
             }
         }
         return Optional.empty();

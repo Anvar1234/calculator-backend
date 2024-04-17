@@ -17,8 +17,7 @@ import static ru.yandex.kingartaved.utils.Utils.isNumeric;
 public class RPNConverter implements Converterable {
     private final List<String> preparedExpression;
 
-
-    public RPNConverter(Preparable preparable, Validatorable validator) { //todo: ВОПРОС, здесь не излишне ли загонять препаратор, ведь можно его вытащить из валидатора, но по логике валидатор булево значение должен вернуть, типа тру или нет.
+    public RPNConverter(Preparable preparable, Validatorable validator) { //TODO: ВОПРОС, не излишне ли загонять препаратор, ведь можно его вытащить из валидатора, но по логике валидатор булево значение должен вернуть, типа тру или нет.
         if (validator.isValidExpression()) {
             this.preparedExpression = preparable.getPreparedExpression();
         } else {
@@ -51,14 +50,13 @@ public class RPNConverter implements Converterable {
                 //добавляем элемент в стек операторов:
                 operators.push(item);
             } else if (Getter.getPriority(item) == -1) {//Если элемент массива закр скобка ")", то:
-                //todo Условие ниже (первый if) скорее всего тоже можно убрать.
                 if (!operators.isEmpty()) {//если стек операторов не пуст, то:
-                    while (Getter.getPriority(operators.peek()) != 1) {//пока не встретим на вершине стека откр скобку //todo: посмотреть на тесты, здесь if заменил на while.
+                    while (Getter.getPriority(operators.peek()) != 1) {//пока не встретим на вершине стека откр скобку
                         //добавляем в выводной список элементы из стека операторов и удаляем их (poll):
                         convertedExpression.add(operators.poll());
                     }
-                    //иначе удаляем открывающую скобку (последний эл-нт): до этого было operators.remove("(");
-                    operators.remove(operators.peek()); //.poll(); //todo: вот здесь может быть тонкий момент.
+                    //как встретили - удаляем открывающую скобку (последний эл-нт):
+                    operators.remove(operators.peek());
                 }
             }
 

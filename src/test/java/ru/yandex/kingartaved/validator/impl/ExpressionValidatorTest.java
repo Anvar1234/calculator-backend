@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.validator.impl;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.yandex.kingartaved.preparer.Preparable;
 import ru.yandex.kingartaved.preparer.impl.ExpressionPreparer;
@@ -13,17 +14,24 @@ public class ExpressionValidatorTest {
         String expression = "1+22*3/2-1+(){}[]";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        boolean result = validator.checkLastTokenForTest();
-        System.out.println("result : " + result);
+        boolean actual = validator.checkLastTokenForTest();
+        Assertions.assertTrue(actual);
     }
-
     @Test
     public void checkLastTokenTest2() {
-        String expression = "(1+2)";
+        String expression = "1+2";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
-        boolean result = validator.checkLastTokenForTest();
-        System.out.println("result : " + result);
+        boolean actual = validator.checkLastTokenForTest();
+        Assertions.assertTrue(actual);
+    }
+    @Test
+    public void checkLastTokenNegativeTest() {
+        String expression = "1+";
+        Preparable preparator = new ExpressionPreparer(expression);
+        ExpressionValidator validator = new ExpressionValidator(preparator);
+        boolean actual = validator.checkLastTokenForTest();
+        assertNotEquals(true, actual);
     }
 
     //_________________________________________________________________________
@@ -33,6 +41,13 @@ public class ExpressionValidatorTest {
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         assertTrue(validator.isValidTokensForTest());
+    }
+    @Test
+    public void isValidTokensNegativeTest() {
+        String expression = "1+22*3/2@-1+(){}[]";
+        Preparable preparator = new ExpressionPreparer(expression);
+        ExpressionValidator validator = new ExpressionValidator(preparator);
+        assertNotEquals(true, validator.isValidTokensForTest());
     }
 
     //_________________________________________________________________________
@@ -69,7 +84,6 @@ public class ExpressionValidatorTest {
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
-        System.out.println("actual1 : " + actual);
         assertNotEquals(true, actual);
     }
 
@@ -88,16 +102,14 @@ public class ExpressionValidatorTest {
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
-        System.out.println("actual3 : " + actual);
         assertNotEquals(true, actual);
     }
 
     //---------------------------------------------------------------------
     @Test
     public void isValidExpressionTest() {
-        String expression = "1+22.2*3/2-1+(){}[]";
+        String expression = "1+22.2*3/2-1^3+(){}[]";
         Preparable preparator = new ExpressionPreparer(expression);
-        System.out.println(preparator);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isValidExpressionForTest();
         assertTrue(actual);
