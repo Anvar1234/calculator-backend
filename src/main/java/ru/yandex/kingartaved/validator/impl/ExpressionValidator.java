@@ -31,7 +31,7 @@ public class ExpressionValidator implements Validatorable {
         try {
             return isValidTokens() && checkLastToken() && isBracketsOrderCorrect();
         } catch (Exception e) {
-            throw new RuntimeException("Выражение не валидно!");
+            throw new RuntimeException("The expression is not valid!");//Выражение не валидно!
         }
     }
     public boolean isValidExpressionForTest() {
@@ -67,7 +67,7 @@ public class ExpressionValidator implements Validatorable {
                 }
             }
         }
-        return balance == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, count будет равно 0.
+        return balance == 0; //по итогу, если для каждой откр скобки есть пара с закрывающей, то баланс будет соблюден, balance будет равен 0.
     }
     public boolean isBracketsOrderCorrectForTest()  {
         return isBracketsOrderCorrect();

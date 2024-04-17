@@ -50,7 +50,7 @@ public class GetterTest {
     public void getPriorityOfTokenTest() {
         int expected = 2;
         int actual = Getter.getPriorityByTokenForTest("+");
-        System.out.println("actual : " + actual);
+        System.out.println("актуальный : " + actual);
         Assertions.assertEquals(expected, actual);
     }
 }

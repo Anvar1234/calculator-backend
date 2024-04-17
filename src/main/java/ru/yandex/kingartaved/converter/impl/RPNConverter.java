@@ -11,15 +11,14 @@ import java.util.Deque;
 import java.util.List;
 
 import static ru.yandex.kingartaved.utils.Utils.isNumeric;
-
+/**
+ * Класс, используемый для перевода пользовательского выражения в обратную польскую нотацию (ОПН).
+ */
 public class RPNConverter implements Converterable {
     private final List<String> preparedExpression;
 
-    /**
-     * Класс, используемый для перевода пользовательского выражения в обратную польскую нотацию (ОПН).
-     */
 
-    public RPNConverter(Preparable preparable, Validatorable validator) {
+    public RPNConverter(Preparable preparable, Validatorable validator) { //todo: ВОПРОС, здесь не излишне ли загонять препаратор, ведь можно его вытащить из валидатора, но по логике валидатор булево значение должен вернуть, типа тру или нет.
         if (validator.isValidExpression()) {
             this.preparedExpression = preparable.getPreparedExpression();
         } else {

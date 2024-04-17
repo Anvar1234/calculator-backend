@@ -30,7 +30,7 @@ public class Getter {
     }
 
     /**
-     * Публичный метод для получения приоритета токена.
+     * Публичный метод для получения приоритета по токену.
      */
     public static int getPriority(String token) {
         return getPriorityByToken(token);
@@ -61,12 +61,12 @@ public class Getter {
                 Path p = Path.of(s);
 //            System.out.println("p : " + p);
                 if (!Files.isDirectory(p) && Tokenable.class.isAssignableFrom(Class.forName(sCopy))) {//проверяем, не является ли значение в списке классов директорией И принадлежит ли к типу Tokenable.
-                    classes.add((Class<Tokenable>) Class.forName(sCopy));//todo: ВОПРОС - приведение можно использовать?
+                    classes.add((Class<Tokenable>) Class.forName(sCopy));//todo: ВОПРОС - приведение можно использовать? И почему Идея выделяет строку?
                 }
             }
             return classes;
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException("Ошибка в указании пути или имени классов.");
+            throw new RuntimeException("There was an error in specifying the path or class name."); //Ошибка в указании пути или имени классов.
         }
     }
 
@@ -87,7 +87,7 @@ public class Getter {
             return tokenableInstances;
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
-            throw new RuntimeException("Невозможно создать экземпляры классов.");
+            throw new RuntimeException("Class instances cannot be instantiated.");//Невозможно создать экземпляры классов.
         }
     }
 

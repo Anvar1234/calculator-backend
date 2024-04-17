@@ -1,5 +1,7 @@
 package ru.yandex.kingartaved.utils;
 
+import java.util.Scanner;
+
 public class Utils {
 
     public static String removeAllSpaces(String expression) {
@@ -13,5 +15,10 @@ public class Utils {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+    public static String prompt(String message) {
+        Scanner in = new Scanner(System.in);
+        System.out.print(message);
+        return in.nextLine();
     }
 }
