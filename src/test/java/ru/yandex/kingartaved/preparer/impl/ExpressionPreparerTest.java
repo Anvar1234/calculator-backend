@@ -62,7 +62,7 @@ public class ExpressionPreparerTest {
 
     @Test
     public void unaryMinusHandlerTest1() {
-        String expression = "-11";
+        String expression = "-1     1";
         ExpressionPreparer preparer = new ExpressionPreparer(expression);
         List<String> expected = List.of("0", "-", "11");
         List<String> actual = preparer.unaryMinusHandlerForTest();

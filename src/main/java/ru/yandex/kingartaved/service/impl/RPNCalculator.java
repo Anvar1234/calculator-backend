@@ -26,8 +26,8 @@ public class RPNCalculator implements Calculable {
             if (isNumeric(element)) {
                 resultStack.push(Double.parseDouble(element));
                 //Иначе, если получение экземпляра не возвращает null, то на этом экземпляре вызываем метод doOperation():
-            } else if (Getter.getInstance(element).isPresent()) {
-                Getter.getInstance(element).get().doOperation(resultStack);
+            } else if (Getter.getOperationInstance(element).isPresent()) {
+                Getter.getOperationInstance(element).get().doOperation(resultStack);
             }
         }
         return resultStack;

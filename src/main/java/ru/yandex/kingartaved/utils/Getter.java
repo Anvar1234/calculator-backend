@@ -25,8 +25,8 @@ public class Getter {
     /**
      * Публичный метод для получения экземпляра класса по токену-оператору.
      */
-    public static Optional<Operation> getInstance(String token) {
-        return getInstanceByToken(token);
+    public static Optional<Operation> getOperationInstance(String token) {
+        return getOperationInstanceByToken(token);
     }
 
     /**
@@ -134,7 +134,7 @@ public class Getter {
     /**
      * Приватный метод для получения экземпляра класса по токену-оператору.
      */
-    private static Optional<Operation> getInstanceByToken(String token) {
+    private static Optional<Operation> getOperationInstanceByToken(String token) {
         List<Tokenable> tokenables = getTokenableInstances();
         for (Tokenable instance : tokenables) {
             if (instance != null &&
