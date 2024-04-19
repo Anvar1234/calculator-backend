@@ -72,7 +72,7 @@ public class Getter {
     }
 
     /**
-     * Приватный метод для получения списка ЭКЗЕМПЛЯРОВ классов-токенов (Tokenable).
+     * Приватный метод для получения списка Tokenable-ЭКЗЕМПЛЯРОВ классов-токенов.
      */
     private static List<Tokenable> getTokenableInstances() {
         List<Tokenable> tokenableInstances = new ArrayList<>();
@@ -128,7 +128,7 @@ public class Getter {
     }
 
     /**
-     * Приватный метод для получения экземпляра класса по токену-оператору.
+     * Приватный метод для получения экземпляра типа Operation по токену-оператору.
      */
     private static Optional<Operation> getOperationInstanceByToken(String token) {
         List<Tokenable> tokenables = getTokenableInstances();
