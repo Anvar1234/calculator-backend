@@ -37,7 +37,7 @@ public class Getter {
     }
 
     /**
-     * Приватный метод для получения списка Tokenable (КЛАССОВ-ТОКЕНОВ) из директории.
+     * Приватный метод для получения списка Классов Tokenable (КЛАССОВ-ТОКЕНОВ) из директории.
      */
     private static List<Class<Tokenable>> getTokenableClasses() {
         //Получаем список<String> ссылок на классы:
