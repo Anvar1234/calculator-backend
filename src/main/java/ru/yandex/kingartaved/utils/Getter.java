@@ -48,18 +48,14 @@ public class Getter {
             //(удаляем .java, заменяем / на точки) и загоняем все это дело в список:
             List<Class<Tokenable>> classes = new ArrayList<>();
             String regex = PropertiesUtil.get("app.string.to.replace");
-//        System.out.println("regex : " + regex);
             String suffix = PropertiesUtil.get("app.class.suffix.to.replace");
-//        System.out.println("suffix : " + suffix);
             for (String s : stringClassDirs) {
                 String sCopy;
                 sCopy = s.replace('\\', '.')
                         .replace(regex, "")
                         .replace(suffix, "")
                         .trim();
-//            System.out.println("s : " + sCopy);
                 Path p = Path.of(s);
-//            System.out.println("p : " + p);
                 if (!Files.isDirectory(p) && Tokenable.class.isAssignableFrom(Class.forName(sCopy))) {//проверяем, не является ли значение в списке классов директорией И принадлежит ли к типу Tokenable.
                     classes.add((Class<Tokenable>) Class.forName(sCopy));//TODO: ВОПРОС - приведение можно использовать? И почему Идея выделяет строку?
                 }

@@ -10,14 +10,13 @@ public class ExpressionValidatorTest {
 
     @Test
     public void isValidExpressionTest() {
-        String expression = "(((2)-1)*20.2^2/2";
+        String expression = "(((2)-1)*20.2)^2/2";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isValidExpressionForTest();
         assertTrue(actual);
     }
 
-    //---------------------------------------------------------------------
     @Test
     public void isValidExpressionNegativeTest() {
         String expression = "(((2))) 2 + 2";
@@ -56,7 +55,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void isBracketsOrderCorrectTest2() {
-        String expression = "{]{){([)}]";
+        String expression = "{1]-{1)+{([1)}]";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
@@ -83,7 +82,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void isBracketsOrderCorrectNegativeTest2() {
-        String expression = "{[)]";
+        String expression = "{[1)]";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
@@ -96,7 +95,7 @@ public class ExpressionValidatorTest {
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isBracketsOrderCorrectForTest();
-        assertNotEquals(true, actual);
+        assertFalse(actual);
     }
 
     //---------------------------------------------------------------------
@@ -137,7 +136,7 @@ public class ExpressionValidatorTest {
     }
     @Test
     public void isNumbersValidPositionNegativeTest2(){
-        String expression = "()";
+        String expression = "2(1)";
         Preparable preparator = new ExpressionPreparer(expression);
         ExpressionValidator validator = new ExpressionValidator(preparator);
         boolean actual = validator.isNumbersValidPositionsForTest();
@@ -230,6 +229,4 @@ public class ExpressionValidatorTest {
         boolean actual = validator.notNearBracketsForTest();
         assertFalse(actual);
     }
-
-
 }
