@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dc4754b8-d315-42d7-b7d3-6f8fa37978be" name="Changes" comment="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/yandex/kingartaved/math/Bracketable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/yandex/kingartaved/math/impl/Cl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/yandex/kingartaved/preparator/Preparatorable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/yandex/kingartaved/utils/ClassGetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/yandex/kingartaved/utils/Creator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/yandex/kingartaved/utils/ClassGetterTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="calculator-backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="calculator-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="calculator-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2eg1XtLJ5mPB1vkY5XbiQ23ukpS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Tests in 'calculator-backend.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.calculator-backend [:ConsoleView.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programming_Local/projects/java-course7/calculator-backend&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programming_Local\projects\java-course7\calculator-backend\src\main\java\ru\yandex\kingartaved\math\impl\brackets" />
+      <recent name="D:\Programming_Local\projects\java-course7\calculator-backend\src\main\resources" />
+      <recent name="D:\Programming_Local\projects\java-course7\calculator-backend\src\main\java\ru\yandex\kingartaved\math" />
+      <recent name="D:\Programming_Local\projects\java-course7\calculator-backend\src\main\java\ru\yandex\kingartaved" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ru.yandex.kingartaved.utils" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.yandex.kingartaved.math.impl" />
+      <recent name="ru.yandex.kingartaved.math.impl.brackets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ConsoleView">
+    <configuration name="ConsoleView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.yandex.kingartaved.ConsoleView" />
+      <module name="calculator-backend.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.yandex.kingartaved.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExpressionValidatorTest.isBracketsOrderCorrectNegativeTest3" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.yandex.kingartaved.validator.impl.ExpressionValidatorTest.isBracketsOrderCorrectNegativeTest3&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ExpressionValidatorTest.isBracketsOrderCorrectTest2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.yandex.kingartaved.validator.impl.ExpressionValidatorTest.isBracketsOrderCorrectTest2&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'calculator-backend.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="calculator-backend [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Tests in 'calculator-backend.test'" />
+        <item itemvalue="Gradle.calculator-backend [build]" />
+        <item itemvalue="Application.ConsoleView" />
+        <item itemvalue="Gradle.ExpressionValidatorTest.isBracketsOrderCorrectNegativeTest3" />
+        <item itemvalue="Gradle.ExpressionValidatorTest.isBracketsOrderCorrectTest2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dc4754b8-d315-42d7-b7d3-6f8fa37978be" name="Changes" comment="" />
+      <created>1712311450762</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712311450762</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Init commit">
+      <created>1712404785847</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712404785847</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Tested getClasses() method.">
+      <created>1712405787250</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712405787250</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Tested getClasses() method.">
+      <created>1712406872967</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712406872967</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Tested getClasses() method.">
+      <created>1712413082017</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712413082017</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Create createBracketMap() method in the Creator class.">
+      <created>1712426296044</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712426296044</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Create a separate createSimpleMap() method in the Creator class.">
+      <created>1712485875110</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712485875110</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Create a separate createSimpleMap() method in the Creator class.">
+      <created>1712485982781</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712485982781</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Test createBracketMapTest() method in the CreatorTest class.">
+      <created>1712512772393</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712512772393</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Tested ClassGetter class.">
+      <created>1712514949481</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1712514949481</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Tested unaryMinusHandler() method in ExpressionPreparator class.">
+      <created>1712598378624</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1712598378624</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Finished ExpressionPreparator class.">
+      <created>1712601184601</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712601184601</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Значительные изменения в структуре, в класс Creator перемещен класс ClassGetter, так как он необходим только для класса Creator, то есть для создания коллекций токенов и скобок. Переписаны тесты для Creator, совмещающие тесты и для ClassGetter.">
+      <created>1712685233216</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712685233217</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Tested isBracketsOrderCorrect() method in ExpressionValidator class.">
+      <created>1712691385662</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712691385662</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Tested isBracketsOrderCorrect() method in ExpressionValidator class.">
+      <created>1712691678072</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712691678072</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Tested isBracketsOrderCorrect() method in ExpressionValidator class.">
+      <created>1712691758825</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1712691758825</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Отсюда начинаю норм вариант. Уже перенес классы-скобок в impl, закомментил тесты.">
+      <created>1712943953182</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1712943953182</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Продолжение, вариант 2: дополнения, изменения.">
+      <created>1713027876362</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1713027876362</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Промежуточный вариант 3.">
+      <created>1713116123319</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1713116123319</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Промежуточный вариант 4. Ошибка в тестовом классе ExpressionValidatorTest.">
+      <created>1713120197263</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1713120197263</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Промежуточный вариант 5. Исправлена ошибка в классе ExpressionValidator в методе isValidTokens(). Обработаны (а не проброшены выше) исключения, код подчищен. Проверено тестами (позже необходимо подчистить).">
+      <created>1713167558016</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1713167558016</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Промежуточный вариант 6. Написаны позитивные тесты для класса Getter.">
+      <created>1713186167552</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1713186167552</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Промежуточный, но РАБОЧИЙ вариант 7. Написаны позитивные тесты для классов RPNConverter, RPNCalculator, пока с выводом, потом подчистить. Добавлена операция возведения в степень (класс ExponentiationToken).">
+      <created>1713206915909</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1713206915909</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Промежуточный рабочий вариант 8. Правки.">
+      <created>1713249178993</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713249178993</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Промежуточный рабочий вариант 9. Правки.">
+      <created>1713348809375</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713348809375</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Завершенный вариант. Внесены некоторые правки, классы подчищены, ридми дописано, тесты почищены от выводов и комментов.">
+      <created>1713365976672</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1713365976672</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Промежуточный завершенный вариант 2. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты (пока с выводом).">
+      <created>1713540703857</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1713540703857</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <created>1713546581136</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1713546581136</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <created>1713555776867</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1713555776867</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <created>1713555811120</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713555811120</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <created>1713555899025</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1713555899025</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены.">
+      <created>1713556673630</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1713556673630</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="app.properties" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init commit" />
+    <MESSAGE value="Tested getClasses() method." />
+    <MESSAGE value="Create createBracketMap() method in the Creator class." />
+    <MESSAGE value="Create a separate createSimpleMap() method in the Creator class." />
+    <MESSAGE value="Test createBracketMapTest() method in the CreatorTest class." />
+    <MESSAGE value="Tested ClassGetter class." />
+    <MESSAGE value="Tested unaryMinusHandler() method in ExpressionPreparator class." />
+    <MESSAGE value="Finished ExpressionPreparator class." />
+    <MESSAGE value="Значительные изменения в структуре, в класс Creator перемещен класс ClassGetter, так как он необходим только для класса Creator, то есть для создания коллекций токенов и скобок. Переписаны тесты для Creator, совмещающие тесты и для ClassGetter." />
+    <MESSAGE value="Tested isBracketsOrderCorrect() method in ExpressionValidator class." />
+    <MESSAGE value="Отсюда начинаю норм вариант. Уже перенес классы-скобок в impl, закомментил тесты." />
+    <MESSAGE value="Продолжение, вариант 2: дополнения, изменения." />
+    <MESSAGE value="Промежуточный вариант 3." />
+    <MESSAGE value="Промежуточный вариант 4. Ошибка в тестовом классе ExpressionValidatorTest." />
+    <MESSAGE value="Промежуточный вариант 5. Исправлена ошибка в классе ExpressionValidator в методе isValidTokens(). Обработаны (а не проброшены выше) исключения, код подчищен. Проверено тестами (позже необходимо подчистить)." />
+    <MESSAGE value="Промежуточный вариант 6. Написаны позитивные тесты для класса Getter." />
+    <MESSAGE value="Промежуточный, но РАБОЧИЙ вариант 7. Написаны позитивные тесты для классов RPNConverter, RPNCalculator, пока с выводом, потом подчистить. Добавлена операция возведения в степень (класс ExponentiationToken)." />
+    <MESSAGE value="Промежуточный рабочий вариант 8. Правки." />
+    <MESSAGE value="Промежуточный рабочий вариант 9. Правки." />
+    <MESSAGE value="Завершенный вариант. Внесены некоторые правки, классы подчищены, ридми дописано, тесты почищены от выводов и комментов." />
+    <MESSAGE value="Промежуточный завершенный вариант 2. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты (пока с выводом)." />
+    <MESSAGE value="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены." />
+    <option name="LAST_COMMIT_MESSAGE" value="Промежуточный рабочий вариант 3. Значительные изменения в валидаторе, добавлены методы проверки корректной расстановки скобок, чисел, операторов. Написаны тесты, существующие - исправлены. Подчищены выводы и ненужные комментарии. Нужные (для понимая) - оставлены." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
