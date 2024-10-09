@@ -14,10 +14,10 @@ import static ru.yandex.kingartaved.utils.Utils.isNumeric;
 /**
  * Класс, используемый для перевода пользовательского выражения в обратную польскую нотацию (ОПН).
  */
-public class RPNConverter implements Converterable {
+public class ReversePolishNotationConverter implements Converterable {
     private final List<String> preparedExpression;
 
-    public RPNConverter(Preparable preparable, Validatorable validator) { //TODO: ВОПРОС, не излишне ли загонять препаратор, ведь можно его вытащить из валидатора, но по логике валидатор булево значение должен вернуть, типа тру или нет.
+    public ReversePolishNotationConverter(Preparable preparable, Validatorable validator) {
         if (validator.isValidExpression()) {
             this.preparedExpression = preparable.getPreparedExpression();
         } else {

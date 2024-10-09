@@ -18,7 +18,7 @@ public class ExpressionPreparer implements Preparable {
     private final String expression;
 
     public ExpressionPreparer(String expression) {
-        String expressionWithoutSpaces = Utils.removeAllSpaces(expression);//TODO: норм в конструкторе подчищать и проверять?
+        String expressionWithoutSpaces = Utils.removeAllSpaces(expression);
         if (!expressionWithoutSpaces.isEmpty()) {
             this.expression = expressionWithoutSpaces;
         } else {

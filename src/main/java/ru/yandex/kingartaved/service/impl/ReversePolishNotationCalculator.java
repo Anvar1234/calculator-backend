@@ -10,10 +10,10 @@ import java.util.List;
 
 import static ru.yandex.kingartaved.utils.Utils.isNumeric;
 
-public class RPNCalculator implements Calculable {
+public class ReversePolishNotationCalculator implements Calculable {
     private final List<String> convertedExpression;
 
-    public RPNCalculator(Converterable converter) {
+    public ReversePolishNotationCalculator(Converterable converter) {
         this.convertedExpression = converter.getConverted();
     }
 
